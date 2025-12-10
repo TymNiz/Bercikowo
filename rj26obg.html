@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>OBIEGI BERCIKOWO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fdfdfd;
+    }
+    .select-group {
+      margin-top: 15px;
+    }
+    select {
+      padding: 5px;
+      font-size: 16px;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e0f0ff;
+      border: 1px solid #aaa;
+      display: none;
+    }
+	.info-box {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #fff8b3;
+      border: 1px solid #d6c600;
+      font-weight: normal;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="select-group">
+    <label for="periodSelect">Obieg:</label>
+    <select id="periodSelect">
+      <option value="">-- wybierz obieg --</option>
+    </select>
+  </div>
+
+  <div class="select-group" id="dayGroup" style="display:none;">
+    <label for="daySelect">Przewoźnik:</label>
+    <select id="daySelect">
+      <option value="">-- wybierz przewoźnika --</option>
+    </select>
+  </div>
+
+  <div class="select-group" id="brigadeGroup" style="display:none;">
+    <label for="brigadeSelect">Obieg:</label>
+    <select id="brigadeSelect">
+      <option value="">-- wybierz obieg --</option>
+    </select>
+  </div>
+  
+  <div id="periodInfo" class="info-box"></div>
+  
+  <div class="output" id="outputText"></div>
+
+  <a href="rj26.html"> POWRÓT </a>
+  <script>
+    const data = {
+	"PolRegio": {
+        "1-7": {
+          "1": "PLAN: SM42\n44300->44301->44302->44303->44304->44305->44306->44307->44308->44309->44310->44311->44312->44313->44314->44315->44316->44317",
+		  "2": "9",
+		  "P-07": "2"
+        },
+		"1-5": {
+          "1": "PLAN: SM42\n44318->44319->44320->44321->44322->44323->44324->44325->44326->44327",
+		  "P-04": "A9 "
+        },
+      },
+	  "REZERWA": {
+        "RW": {
+          "-": "-"
+        },
+		"SB": {
+          "-": "-"
+        },
+		"ND": {
+          "-": "-"
+        }
+      }
+    };
+	
+	const periodNotes = {
+      "2025 Wakacje": "",
+	  "2024 Październik Kłosok": "Ważne od 2024.10.01 do 2024.10.07. UWAGA! Kursówki mogą być nie pełne, może brakować godzin :-C",
+	  "2024 Czerwiec KMR": "",
+      "SPECJALNE": "Różne specjalne brygady specjalnych kursów...",
+	  "REZERWA": ""
+    };
+
+    const periodSelect = document.getElementById("periodSelect");
+    const daySelect = document.getElementById("daySelect");
+    const brigadeSelect = document.getElementById("brigadeSelect");
+
+    const dayGroup = document.getElementById("dayGroup");
+    const brigadeGroup = document.getElementById("brigadeGroup");
+    const outputText = document.getElementById("outputText");
+	const periodInfoBox = document.getElementById("periodInfo");
+
+    for (const period in data) {
+      const option = document.createElement("option");
+      option.value = period;
+      option.textContent = period;
+      periodSelect.appendChild(option);
+    }
+
+    periodSelect.addEventListener("change", () => {
+      daySelect.innerHTML = '<option value="">-- wybierz dzień --</option>';
+      brigadeSelect.innerHTML = '<option value="">-- wybierz brygadę --</option>';
+      brigadeGroup.style.display = "none";
+      outputText.style.display = "none";
+
+      const selectedPeriod = periodSelect.value;
+      if (selectedPeriod && data[selectedPeriod]) {
+        dayGroup.style.display = "block";
+		
+		const note = periodNotes[selectedPeriod];
+        if (note) {
+          periodInfoBox.textContent = note;
+          periodInfoBox.style.display = "block";
+        } else {
+          periodInfoBox.style.display = "none";
+        }
+		
+        const days = Object.keys(data[selectedPeriod]);
+        days.forEach(day => {
+          const option = document.createElement("option");
+          option.value = day;
+          option.textContent = day;
+          daySelect.appendChild(option);
+        });
+      } else {
+        dayGroup.style.display = "none";
+		periodInfoBox.style.display = "none";
+      }
+    });
+
+    daySelect.addEventListener("change", () => {
+      brigadeSelect.innerHTML = '<option value="">-- wybierz brygadę --</option>';
+      outputText.style.display = "none";
+
+      const period = periodSelect.value;
+      const day = daySelect.value;
+      if (period && day && data[period][day]) {
+        brigadeGroup.style.display = "block";
+        const brigades = Object.keys(data[period][day]);
+        brigades.forEach(b => {
+          const option = document.createElement("option");
+          option.value = b;
+          option.textContent = b;
+          brigadeSelect.appendChild(option);
+        });
+      } else {
+        brigadeGroup.style.display = "none";
+      }
+    });
+
+    brigadeSelect.addEventListener("change", () => {
+      const period = periodSelect.value;
+      const day = daySelect.value;
+      const brigade = brigadeSelect.value;
+      const content = data?.[period]?.[day]?.[brigade];
+
+      if (content) {
+        outputText.innerHTML = content.replace(/\n/g, "<br>");
+        outputText.style.display = "block";
+      } else {
+        outputText.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>

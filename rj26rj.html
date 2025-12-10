@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Rozkład jazdy</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fdfdfd;
+      color: #222;
+      padding: 20px;
+    }
+    input, button {
+      padding: 6px;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    th {
+      background-color: #eee;
+    }
+    td:nth-child(1),
+    th:nth-child(1),
+    td:nth-child(2),
+    th:nth-child(2),
+    td:nth-child(5),
+    th:nth-child(5) {
+      width: 25%;
+    }
+    td:nth-child(3),
+    th:nth-child(3),
+    td:nth-child(4),
+    th:nth-child(4) {
+      width: 14.3%;
+    }
+    td:nth-child(1), td:nth-child(3), td:nth-child(4) {
+      text-align: center;
+    }
+    td:nth-child(2) {
+      text-align: left;
+    }
+    td:nth-child(5) {
+      text-align: right;
+    }
+    datalist option {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Rozkład jazdy dla stacji</h2>
+
+  <label>Stacja:
+    <input type="text" id="stationInput" list="stations">
+  </label><br>
+  <label>Data:
+    <input type="date" id="dateInput">
+  </label><br>
+  <button onclick="showTimetable()">Pokaż rozkład</button>
+
+  <datalist id="stations"></datalist>
+
+  <table id="timetable" style="display:none;">
+    <thead>
+      <tr>
+        <th>POCIĄG</th>
+        <th>Z</th>
+        <th>PRZ</th>
+        <th>ODJ</th>
+        <th>DO</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <a> Powrót </a> <a href="rj26.html"> KLIK </a>
+  <script>
+    const trains = [
+      {
+        number: "44300",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "05:35" },
+          { station: "Wilcza Towarowa", arr: "05:47", dep: "05:48" },
+          { station: "Wilcza Miasto", arr: "05:51", dep: "05:52" },
+          { station: "Bercikowo Ligota", arr: "05:58", dep: null }
+        ]
+      },
+	  {
+        number: "44301",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "06:10" },
+          { station: "Wilcza Miasto", arr: "06:16", dep: "06:17" },
+          { station: "Wilcza Towarowa", arr: "06:20", dep: "06:21" },
+          { station: "Piotrków", arr: "06:33", dep: null }
+        ]
+      },
+	  {
+        number: "44302",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "07:35" },
+          { station: "Wilcza Towarowa", arr: "07:47", dep: "07:48" },
+          { station: "Wilcza Miasto", arr: "07:51", dep: "07:52" },
+          { station: "Bercikowo Ligota", arr: "07:58", dep: null }
+        ]
+      },
+	  {
+        number: "44303",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "08:10" },
+          { station: "Wilcza Miasto", arr: "08:16", dep: "08:17" },
+          { station: "Wilcza Towarowa", arr: "08:20", dep: "08:21" },
+          { station: "Piotrków", arr: "08:33", dep: null }
+        ]
+      },
+	  {
+        number: "44304",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "09:35" },
+          { station: "Wilcza Towarowa", arr: "09:47", dep: "09:48" },
+          { station: "Wilcza Miasto", arr: "09:51", dep: "09:52" },
+          { station: "Bercikowo Ligota", arr: "09:58", dep: null }
+        ]
+      },
+	  {
+        number: "44305",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "10:10" },
+          { station: "Wilcza Miasto", arr: "10:16", dep: "10:17" },
+          { station: "Wilcza Towarowa", arr: "10:20", dep: "10:21" },
+          { station: "Piotrków", arr: "10:33", dep: null }
+        ]
+      },
+	  {
+        number: "44306",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "11:35" },
+          { station: "Wilcza Towarowa", arr: "11:47", dep: "11:48" },
+          { station: "Wilcza Miasto", arr: "11:51", dep: "11:52" },
+          { station: "Bercikowo Ligota", arr: "11:58", dep: null }
+        ]
+      },
+	  {
+        number: "44307",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "12:10" },
+          { station: "Wilcza Miasto", arr: "12:16", dep: "12:17" },
+          { station: "Wilcza Towarowa", arr: "12:20", dep: "12:21" },
+          { station: "Piotrków", arr: "12:33", dep: null }
+        ]
+      },
+	  {
+        number: "44308",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "13:35" },
+          { station: "Wilcza Towarowa", arr: "13:47", dep: "13:48" },
+          { station: "Wilcza Miasto", arr: "13:51", dep: "13:52" },
+          { station: "Bercikowo Ligota", arr: "13:58", dep: null }
+        ]
+      },
+	  {
+        number: "44309",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "14:10" },
+          { station: "Wilcza Miasto", arr: "14:16", dep: "14:17" },
+          { station: "Wilcza Towarowa", arr: "14:20", dep: "14:21" },
+          { station: "Piotrków", arr: "14:33", dep: null }
+        ]
+      },
+	  {
+        number: "44310",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "15:35" },
+          { station: "Wilcza Towarowa", arr: "15:47", dep: "15:48" },
+          { station: "Wilcza Miasto", arr: "15:51", dep: "15:52" },
+          { station: "Bercikowo Ligota", arr: "15:58", dep: null }
+        ]
+      },
+	  {
+        number: "44311",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "16:10" },
+          { station: "Wilcza Miasto", arr: "16:16", dep: "16:17" },
+          { station: "Wilcza Towarowa", arr: "16:20", dep: "16:21" },
+          { station: "Piotrków", arr: "16:33", dep: null }
+        ]
+      },
+	  {
+        number: "44312",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "17:35" },
+          { station: "Wilcza Towarowa", arr: "17:47", dep: "17:48" },
+          { station: "Wilcza Miasto", arr: "17:51", dep: "17:52" },
+          { station: "Bercikowo Ligota", arr: "17:58", dep: null }
+        ]
+      },
+	  {
+        number: "44313",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "18:10" },
+          { station: "Wilcza Miasto", arr: "18:16", dep: "18:17" },
+          { station: "Wilcza Towarowa", arr: "18:20", dep: "18:21" },
+          { station: "Piotrków", arr: "18:33", dep: null }
+        ]
+      },
+	  {
+        number: "44314",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "19:35" },
+          { station: "Wilcza Towarowa", arr: "19:47", dep: "19:48" },
+          { station: "Wilcza Miasto", arr: "19:51", dep: "19:52" },
+          { station: "Bercikowo Ligota", arr: "19:58", dep: null }
+        ]
+      },
+	  {
+        number: "44315",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "20:10" },
+          { station: "Wilcza Miasto", arr: "20:16", dep: "20:17" },
+          { station: "Wilcza Towarowa", arr: "20:20", dep: "20:21" },
+          { station: "Piotrków", arr: "20:33", dep: null }
+        ]
+      },
+	  {
+        number: "44316",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "21:35" },
+          { station: "Wilcza Towarowa", arr: "21:47", dep: "21:48" },
+          { station: "Wilcza Miasto", arr: "21:51", dep: "21:52" },
+          { station: "Bercikowo Ligota", arr: "21:58", dep: null }
+        ]
+      },
+	  {
+        number: "44317",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "22:10" },
+          { station: "Wilcza Miasto", arr: "22:16", dep: "22:17" },
+          { station: "Wilcza Towarowa", arr: "22:20", dep: "22:21" },
+          { station: "Piotrków", arr: "22:33", dep: null }
+        ]
+      },
+	  {
+        number: "44318",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "08:35" },
+          { station: "Wilcza Towarowa", arr: "08:47", dep: "08:48" },
+          { station: "Wilcza Miasto", arr: "08:51", dep: "08:52" },
+          { station: "Bercikowo Ligota", arr: "08:58", dep: null }
+        ]
+      },
+	  {
+        number: "44319",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "09:10" },
+          { station: "Wilcza Miasto", arr: "09:16", dep: "09:17" },
+          { station: "Wilcza Towarowa", arr: "09:20", dep: "09:21" },
+          { station: "Piotrków", arr: "09:33", dep: null }
+        ]
+      },
+	  {
+        number: "44320",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "10:35" },
+          { station: "Wilcza Towarowa", arr: "10:47", dep: "10:48" },
+          { station: "Wilcza Miasto", arr: "10:51", dep: "10:52" },
+          { station: "Bercikowo Ligota", arr: "10:58", dep: null }
+        ]
+      },
+	  {
+        number: "44321",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "11:10" },
+          { station: "Wilcza Miasto", arr: "11:16", dep: "11:17" },
+          { station: "Wilcza Towarowa", arr: "11:20", dep: "11:21" },
+          { station: "Piotrków", arr: "11:33", dep: null }
+        ]
+      },
+	  {
+        number: "44322",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "14:35" },
+          { station: "Wilcza Towarowa", arr: "14:47", dep: "14:48" },
+          { station: "Wilcza Miasto", arr: "14:51", dep: "14:52" },
+          { station: "Bercikowo Ligota", arr: "14:58", dep: null }
+        ]
+      },
+	  {
+        number: "44323",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "15:10" },
+          { station: "Wilcza Miasto", arr: "15:16", dep: "15:17" },
+          { station: "Wilcza Towarowa", arr: "15:20", dep: "15:21" },
+          { station: "Piotrków", arr: "15:33", dep: null }
+        ]
+      },
+	  {
+        number: "44324",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "16:35" },
+          { station: "Wilcza Towarowa", arr: "16:47", dep: "16:48" },
+          { station: "Wilcza Miasto", arr: "16:51", dep: "16:52" },
+          { station: "Bercikowo Ligota", arr: "16:58", dep: null }
+        ]
+      },
+	  {
+        number: "44325",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "17:10" },
+          { station: "Wilcza Miasto", arr: "17:16", dep: "17:17" },
+          { station: "Wilcza Towarowa", arr: "17:20", dep: "17:21" },
+          { station: "Piotrków", arr: "17:33", dep: null }
+        ]
+      },
+	  {
+        number: "44326",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "18:35" },
+          { station: "Wilcza Towarowa", arr: "18:47", dep: "18:48" },
+          { station: "Wilcza Miasto", arr: "18:51", dep: "18:52" },
+          { station: "Bercikowo Ligota", arr: "18:58", dep: null }
+        ]
+      },
+	  {
+        number: "44327",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Bercikowo Ligota", arr: null, dep: "19:10" },
+          { station: "Wilcza Miasto", arr: "19:16", dep: "19:17" },
+          { station: "Wilcza Towarowa", arr: "19:20", dep: "19:21" },
+          { station: "Piotrków", arr: "19:33", dep: null }
+        ]
+      }
+    ];
+
+    const stationInput = document.getElementById("stationInput");
+    const dateInput = document.getElementById("dateInput");
+    const table = document.getElementById("timetable");
+    const tbody = table.querySelector("tbody");
+
+    // Wypełnij datalistę
+    const allStations = Array.from(new Set(trains.flatMap(t => t.stops.map(s => s.station)))).sort();
+    const stationList = document.getElementById("stations");
+    allStations.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s;
+      stationList.appendChild(opt);
+    });
+
+    // Domyślna data
+    const today = new Date();
+    dateInput.value = today.toISOString().split("T")[0];
+
+    function dayMatches(trainDays, travelDate) {
+      const dayOfWeek = travelDate.getDay(); // 0 - niedziela
+      const dayMap = { 0: 7, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
+      const day = dayMap[dayOfWeek];
+      if (trainDays.includes(",")) {
+        return trainDays.split(",").includes(day.toString());
+      }
+      const [from, to] = trainDays.split("-").map(Number);
+      return day >= from && day <= to;
+    }
+
+    function showTimetable() {
+      const station = stationInput.value.trim();
+      const date = new Date(dateInput.value);
+      tbody.innerHTML = "";
+      table.style.display = "none";
+
+      if (!station || !dateInput.value) {
+        alert("Wprowadź stację i datę.");
+        return;
+      }
+
+      const matching = [];
+
+      for (const train of trains) {
+        if (!dayMatches(train.days, date)) continue;
+        const stops = train.stops;
+        const index = stops.findIndex(s => s.station === station);
+        if (index === -1) continue;
+
+        const stop = stops[index];
+        const from = index > 0 ? stops[0] : null;
+        const to = index < stops.length - 1 ? stops[stops.length - 1] : null;
+
+        const fromText = from
+          ? `<strong>${from.station}</strong> ${from.dep ?? ""}<br>` +
+            stops.slice(1, index).map(s => `${s.station} ${s.dep ?? ""}`).join(", ")
+          : "";
+
+        const toText = to
+          ? stops.slice(index + 1, stops.length - 1).map(s => `${s.station} ${s.arr ?? ""}`).join(", ") +
+            "<br><strong>" + to.station + "</strong> " + (to.arr ?? "")
+          : "";
+
+        matching.push({
+          train,
+          stop,
+          fromText,
+          toText
+        });
+      }
+
+      if (matching.length === 0) {
+        alert("Brak pociągów na tej stacji tego dnia.");
+        return;
+      }
+
+      for (const entry of matching) {
+        const t = entry.train;
+        const s = entry.stop;
+
+        const trainHTML = `<strong>${t.carrier} ${t.category}</strong> ${t.number}${t.name ? " <strong>" + t.name.toUpperCase() + "</strong>" : ""}`;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${trainHTML}</td>
+          <td>${entry.fromText}</td>
+          <td>${s.arr ?? ""}</td>
+          <td>${s.dep ?? ""}</td>
+          <td>${entry.toText}</td>
+        `;
+        tbody.appendChild(row);
+      }
+
+      table.style.display = "table";
+    }
+  </script>
+
+</body>
+</html>
