@@ -84,10 +84,382 @@
     </thead>
     <tbody></tbody>
   </table>
-  <a> Powrót </a> <a href="rj26.html"> KLIK </a>
+
+  <a>Powrót</a> <a href="rj26.html">KLIK</a>
+
   <script>
     const trains = [
       {
+        number: "44601",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "05:07" },
+          { station: "Piotrków Rafineria", arr: "05:10", dep: "05:10" },
+          { station: "Stachy", arr: "05:19", dep: "05:20" },
+		  { station: "Kosewo", arr: "05:27", dep: "05:29" },
+		  { station: "Międzyrzecze", arr: "05:33", dep: "05:33" },
+		  { station: "Rudyszwałd", arr: "05:38", dep: "05:38" },
+          { station: "Chałupki", arr: "05:45", dep: null }
+        ]
+      },
+	  {
+        number: "44600",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "06:10" },
+          { station: "Rudyszwałd", arr: "06:17", dep: "06:17" },
+          { station: "Międzyrzecze", arr: "06:22", dep: "06:22" },
+		  { station: "Kosewo", arr: "06:26", dep: "06:28" },
+		  { station: "Stachy", arr: "06:35", dep: "06:36" },
+		  { station: "Piotrków Rafineria", arr: "06:45", dep: "06:45" },
+          { station: "Piotrków", arr: "06:48", dep: null }
+        ]
+      },
+	  {
+        number: "44603",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "07:02" },
+          { station: "Piotrków Rafineria", arr: "07:05", dep: "07:05" },
+          { station: "Stachy", arr: "07:14", dep: "07:15" },
+		  { station: "Kosewo", arr: "07:22", dep: "07:24" },
+		  { station: "Międzyrzecze", arr: "07:28", dep: "07:28" },
+		  { station: "Rudyszwałd", arr: "07:35", dep: "07:35" },
+          { station: "Chałupki", arr: "07:40", dep: null }
+        ]
+      },
+	  {
+        number: "44602",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "07:55" },
+          { station: "Rudyszwałd", arr: "08:02", dep: "08:02" },
+          { station: "Międzyrzecze", arr: "08:07", dep: "08:07" },
+		  { station: "Kosewo", arr: "08:11", dep: "08:13" },
+		  { station: "Stachy", arr: "08:20", dep: "08:21" },
+		  { station: "Piotrków Rafineria", arr: "08:30", dep: "08:30" },
+          { station: "Piotrków", arr: "08:33", dep: null }
+        ]
+      },
+	  {
+        number: "44605",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "09:32" },
+          { station: "Piotrków Rafineria", arr: "09:35", dep: "09:35" },
+          { station: "Stachy", arr: "09:44", dep: "09:45" },
+		  { station: "Kosewo", arr: "09:52", dep: "09:54" },
+		  { station: "Międzyrzecze", arr: "09:58", dep: "09:58" },
+		  { station: "Rudyszwałd", arr: "10:05", dep: "10:05" },
+          { station: "Chałupki", arr: "10:10", dep: null }
+        ]
+      },
+	  {
+        number: "44604",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "10:25" },
+          { station: "Rudyszwałd", arr: "10:32", dep: "10:32" },
+          { station: "Międzyrzecze", arr: "10:37", dep: "10:37" },
+		  { station: "Kosewo", arr: "10:41", dep: "10:43" },
+		  { station: "Stachy", arr: "10:50", dep: "10:51" },
+		  { station: "Piotrków Rafineria", arr: "11:00", dep: "11:00" },
+          { station: "Piotrków", arr: "11:03", dep: null }
+        ]
+      },
+	  {
+        number: "44607",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "13:12" },
+          { station: "Piotrków Rafineria", arr: "13:15", dep: "13:15" },
+          { station: "Stachy", arr: "13:24", dep: "13:25" },
+		  { station: "Kosewo", arr: "13:32", dep: "13:34" },
+		  { station: "Międzyrzecze", arr: "13:38", dep: "13:38" },
+		  { station: "Rudyszwałd", arr: "13:45", dep: "13:45" },
+          { station: "Chałupki", arr: "13:50", dep: null }
+        ]
+      },
+	  {
+        number: "44606",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "14:15" },
+          { station: "Rudyszwałd", arr: "14:22", dep: "14:22" },
+          { station: "Międzyrzecze", arr: "14:27", dep: "14:27" },
+		  { station: "Kosewo", arr: "14:31", dep: "14:33" },
+		  { station: "Stachy", arr: "14:40", dep: "14:41" },
+		  { station: "Piotrków Rafineria", arr: "14:50", dep: "14:50" },
+          { station: "Piotrków", arr: "14:53", dep: null }
+        ]
+      },
+	  {
+        number: "44609",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "15:10" },
+          { station: "Piotrków Rafineria", arr: "15:13", dep: "15:13" },
+          { station: "Stachy", arr: "15:22", dep: "15:23" },
+		  { station: "Kosewo", arr: "15:30", dep: "15:32" },
+		  { station: "Międzyrzecze", arr: "15:36", dep: "15:36" },
+		  { station: "Rudyszwałd", arr: "15:43", dep: "15:43" },
+          { station: "Chałupki", arr: "15:48", dep: null }
+        ]
+      },
+	  {
+        number: "44608",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "16:05" },
+          { station: "Rudyszwałd", arr: "16:12", dep: "16:12" },
+          { station: "Międzyrzecze", arr: "16:17", dep: "16:17" },
+		  { station: "Kosewo", arr: "16:21", dep: "16:23" },
+		  { station: "Stachy", arr: "16:30", dep: "16:31" },
+		  { station: "Piotrków Rafineria", arr: "16:40", dep: "16:40" },
+          { station: "Piotrków", arr: "16:43", dep: null }
+        ]
+      },
+	  {
+        number: "44611",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "17:07" },
+          { station: "Piotrków Rafineria", arr: "17:10", dep: "17:10" },
+          { station: "Stachy", arr: "17:19", dep: "17:20" },
+		  { station: "Kosewo", arr: "17:27", dep: "17:29" },
+		  { station: "Międzyrzecze", arr: "17:33", dep: "17:33" },
+		  { station: "Rudyszwałd", arr: "17:38", dep: "17:38" },
+          { station: "Chałupki", arr: "17:45", dep: null }
+        ]
+      },
+	  {
+        number: "44610",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "18:10" },
+          { station: "Rudyszwałd", arr: "18:17", dep: "18:17" },
+          { station: "Międzyrzecze", arr: "18:22", dep: "18:22" },
+		  { station: "Kosewo", arr: "18:26", dep: "18:28" },
+		  { station: "Stachy", arr: "18:35", dep: "18:36" },
+		  { station: "Piotrków Rafineria", arr: "18:45", dep: "18:45" },
+          { station: "Piotrków", arr: "18:48", dep: null }
+        ]
+      },
+	  {
+        number: "44613",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "19:22" },
+          { station: "Piotrków Rafineria", arr: "19:25", dep: "19:25" },
+          { station: "Stachy", arr: "19:34", dep: "19:35" },
+		  { station: "Kosewo", arr: "19:42", dep: "19:44" },
+		  { station: "Międzyrzecze", arr: "19:48", dep: "19:48" },
+		  { station: "Rudyszwałd", arr: "19:55", dep: "19:55" },
+          { station: "Chałupki", arr: "20:00", dep: null }
+        ]
+      },
+	  {
+        number: "44612",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "20:15" },
+          { station: "Rudyszwałd", arr: "20:22", dep: "20:22" },
+          { station: "Międzyrzecze", arr: "20:27", dep: "20:27" },
+		  { station: "Kosewo", arr: "20:31", dep: "20:33" },
+		  { station: "Stachy", arr: "20:40", dep: "20:41" },
+		  { station: "Piotrków Rafineria", arr: "20:50", dep: "20:50" },
+          { station: "Piotrków", arr: "20:53", dep: null }
+        ]
+      },
+	  {
+        number: "44615",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "21:12" },
+          { station: "Piotrków Rafineria", arr: "21:15", dep: "21:15" },
+          { station: "Stachy", arr: "21:24", dep: "21:25" },
+		  { station: "Kosewo", arr: "21:32", dep: "21:34" },
+		  { station: "Międzyrzecze", arr: "21:38", dep: "21:38" },
+		  { station: "Rudyszwałd", arr: "21:45", dep: "21:45" },
+          { station: "Chałupki", arr: "21:50", dep: null }
+        ]
+      },
+	  {
+        number: "44614",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "22:15" },
+          { station: "Rudyszwałd", arr: "22:22", dep: "22:22" },
+          { station: "Międzyrzecze", arr: "22:27", dep: "22:27" },
+		  { station: "Kosewo", arr: "22:31", dep: "22:33" },
+		  { station: "Stachy", arr: "22:40", dep: "22:41" },
+		  { station: "Piotrków Rafineria", arr: "22:50", dep: "22:50" },
+          { station: "Piotrków", arr: "22:53", dep: null }
+        ]
+      },
+	  {
+        number: "44400",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "04:22" },
+          { station: "Wilcza XYZ", arr: "04:25", dep: "04:25" },
+          { station: "Morawiany Zarzecze", arr: "04:42", dep: "04:42" },
+		  { station: "Morawiany", arr: "04:44", dep: "04:45" },
+		  { station: "Pniów", arr: "04:59", dep: "05:00" },
+		  { station: "Oksice", arr: "05:17", dep: "05:18" },
+		  { station: "Oksice Tartak", arr: "05:20", dep: "05:20" },
+		  { station: "Grzęzno", arr: "05:35", dep: "05:36" },
+		  { station: "Wielecin Miasto", arr: "05:48", dep: "05:50" },
+          { station: "Wielecin", arr: "05:53", dep: null }
+        ]
+      },
+	  {
+        number: "44401",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "06:10" },
+          { station: "Wielecin Miasto", arr: "06:13", dep: "06:15" },
+          { station: "Grzęzno", arr: "06:27", dep: "06:28" },
+		  { station: "Oksice Tartak", arr: "06:43", dep: "06:43" },
+		  { station: "Oksice", arr: "06:45", dep: "06:46" },
+		  { station: "Pniów", arr: "07:03", dep: "07:04" },
+		  { station: "Morawiany", arr: "07:18", dep: "07:19" },
+		  { station: "Morawiany Zarzecze", arr: "07:21", dep: "07:21" },
+		  { station: "Wilcza XYZ", arr: "07:38", dep: "07:38" },
+          { station: "Wilcza", arr: "07:41", dep: null }
+        ]
+      },
+	  {
+        number: "44402",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "06:22" },
+          { station: "Wilcza XYZ", arr: "06:25", dep: "06:25" },
+          { station: "Morawiany Zarzecze", arr: "06:42", dep: "06:42" },
+		  { station: "Morawiany", arr: "06:44", dep: "06:45" },
+		  { station: "Pniów", arr: "06:59", dep: "07:04" },
+		  { station: "Oksice", arr: "07:21", dep: "07:22" },
+		  { station: "Oksice Tartak", arr: "07:24", dep: "07:24" },
+		  { station: "Grzęzno", arr: "07:39", dep: "07:40" },
+		  { station: "Wielecin Miasto", arr: "07:52", dep: "07:54" },
+          { station: "Wielecin", arr: "07:57", dep: null }
+        ]
+      },
+	  {
+        number: "44403",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "07:21" },
+          { station: "Wielecin Miasto", arr: "07:24", dep: "07:26" },
+          { station: "Grzęzno", arr: "07:38", dep: "07:40" },
+		  { station: "Oksice Tartak", arr: "07:55", dep: "07:55" },
+		  { station: "Oksice", arr: "07:57", dep: "07:59" },
+		  { station: "Pniów", arr: "08:16", dep: "08:17" },
+		  { station: "Morawiany", arr: "08:31", dep: "08:33" },
+		  { station: "Morawiany Zarzecze", arr: "08:35", dep: "08:35" },
+		  { station: "Wilcza XYZ", arr: "09:00", dep: "09:00" },
+          { station: "Wilcza", arr: "09:03", dep: null }
+        ]
+      },
+	  {
+        number: "44404",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "04:22" },
+          { station: "Wilcza XYZ", arr: "04:25", dep: "04:25" },
+          { station: "Morawiany Zarzecze", arr: "04:42", dep: "04:42" },
+		  { station: "Morawiany", arr: "04:44", dep: "04:45" },
+		  { station: "Pniów", arr: "04:59", dep: "05:00" },
+		  { station: "Oksice", arr: "05:17", dep: "05:18" },
+		  { station: "Oksice Tartak", arr: "05:20", dep: "05:20" },
+		  { station: "Grzęzno", arr: "05:35", dep: "05:36" },
+		  { station: "Wielecin Miasto", arr: "05:48", dep: "05:50" },
+          { station: "Wielecin", arr: "05:53", dep: null }
+        ]
+      },
+	  {
+        number: "44406",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "08:09" },
+          { station: "Wilcza XYZ", arr: "08:12", dep: "08:12" },
+          { station: "Morawiany Zarzecze", arr: "08:29", dep: "08:29" },
+		  { station: "Morawiany", arr: "08:32", dep: "08:33" },
+		  { station: "Pniów", arr: "08:47", dep: "08:48" },
+		  { station: "Oksice", arr: "09:05", dep: "09:06" },
+		  { station: "Oksice Tartak", arr: "09:08", dep: "09:08" },
+		  { station: "Grzęzno", arr: "09:23", dep: "09:24" },
+		  { station: "Wielecin Miasto", arr: "09:36", dep: "09:38" },
+          { station: "Wielecin", arr: "09:41", dep: null }
+        ]
+      },
+	  {
         number: "44300",
         name: "",
         carrier: "PR - ",
@@ -100,6 +472,7 @@
           { station: "Bercikowo Ligota", arr: "05:58", dep: null }
         ]
       },
+	  
 	  {
         number: "44301",
         name: "",
@@ -458,7 +831,6 @@
     const table = document.getElementById("timetable");
     const tbody = table.querySelector("tbody");
 
-    // Wypełnij datalistę
     const allStations = Array.from(new Set(trains.flatMap(t => t.stops.map(s => s.station)))).sort();
     const stationList = document.getElementById("stations");
     allStations.forEach(s => {
@@ -467,12 +839,11 @@
       stationList.appendChild(opt);
     });
 
-    // Domyślna data
     const today = new Date();
     dateInput.value = today.toISOString().split("T")[0];
 
     function dayMatches(trainDays, travelDate) {
-      const dayOfWeek = travelDate.getDay(); // 0 - niedziela
+      const dayOfWeek = travelDate.getDay();
       const dayMap = { 0: 7, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
       const day = dayMap[dayOfWeek];
       if (trainDays.includes(",")) {
@@ -527,6 +898,13 @@
         alert("Brak pociągów na tej stacji tego dnia.");
         return;
       }
+
+      // ✔️ SORTOWANIE CHRONOLOGICZNE
+      matching.sort((a, b) => {
+        const t1 = a.stop.arr || a.stop.dep;
+        const t2 = b.stop.arr || b.stop.dep;
+        return t1.localeCompare(t2);
+      });
 
       for (const entry of matching) {
         const t = entry.train;
