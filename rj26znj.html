@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Rozkład jazdy</title>
+  <title>Wyszukiwanie pociągu</title>
   <style>
     body {
       font-family: sans-serif;
@@ -12,84 +12,52 @@
     }
     input, button {
       padding: 6px;
-      margin: 5px 0;
       font-size: 14px;
+      margin: 5px 0;
+    }
+    .result {
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+      margin-top: 15px;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
     }
     table {
-      width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
-      table-layout: fixed;
+      width: 100%;
+      margin-top: 10px;
+      font-family: monospace;
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 8px;
-      vertical-align: top;
-      word-wrap: break-word;
-    }
-    th {
-      background-color: #eee;
-    }
-    td:nth-child(1),
-    th:nth-child(1),
-    td:nth-child(2),
-    th:nth-child(2),
-    td:nth-child(5),
-    th:nth-child(5) {
-      width: 25%;
-    }
-    td:nth-child(3),
-    th:nth-child(3),
-    td:nth-child(4),
-    th:nth-child(4) {
-      width: 14.3%;
-    }
-    td:nth-child(1), td:nth-child(3), td:nth-child(4) {
-      text-align: center;
-    }
-    td:nth-child(2) {
+      padding: 4px 6px;
       text-align: left;
     }
-    td:nth-child(5) {
-      text-align: right;
-    }
-    datalist option {
-      font-size: 14px;
+    th {
+      background: #eee;
     }
   </style>
 </head>
 <body>
 
-  <h2>Rozkład jazdy dla stacji</h2>
+<h2>Wyszukiwanie pociągu</h2>
 
-  <label>Stacja:
-    <input type="text" id="stationInput" list="stations">
-  </label><br>
-  <label>Data:
-    <input type="date" id="dateInput">
-  </label><br>
-  <button onclick="showTimetable()">Pokaż rozkład</button>
+<label>Numer pociągu:
+  <input type="text" id="trainNumber" placeholder="">
+</label>
+<button onclick="findTrain()">Szukaj</button>
 
-  <datalist id="stations"></datalist>
+<a>Powrót</a> <a href="rj26.html">KLIK</a>
 
-  <table id="timetable" style="display:none;">
-    <thead>
-      <tr>
-        <th>POCIĄG</th>
-        <th>Z</th>
-        <th>PRZ</th>
-        <th>ODJ</th>
-        <th>DO</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<div id="result"></div>
 
-  <a>Powrót</a> <a href="rj26.html">KLIK</a>
-
-  <script>
-    const trains = [
-      {
+<script>
+/* ====== BAZA DANYCH – IDENTYCZNA ====== */
+const trains = [
+  {
         number: "44100",
         name: "",
         carrier: "PR - ",
@@ -2445,108 +2413,51 @@
           { station: "Piotrków", arr: "19:33", dep: null }
         ]
       }
-    ];
+];
 
-    const stationInput = document.getElementById("stationInput");
-    const dateInput = document.getElementById("dateInput");
-    const table = document.getElementById("timetable");
-    const tbody = table.querySelector("tbody");
+/* ====== LOGIKA ====== */
+function findTrain() {
+  const num = document.getElementById("trainNumber").value.trim();
+  const result = document.getElementById("result");
+  result.innerHTML = "";
 
-    const allStations = Array.from(new Set(trains.flatMap(t => t.stops.map(s => s.station)))).sort();
-    const stationList = document.getElementById("stations");
-    allStations.forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = s;
-      stationList.appendChild(opt);
-    });
+  if (!num) {
+    result.innerHTML = "<p>Podaj numer pociągu.</p>";
+    return;
+  }
 
-    const today = new Date();
-    dateInput.value = today.toISOString().split("T")[0];
+  const train = trains.find(t => t.number === num);
 
-    function dayMatches(trainDays, travelDate) {
-      const dayOfWeek = travelDate.getDay();
-      const dayMap = { 0: 7, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
-      const day = dayMap[dayOfWeek];
-      if (trainDays.includes(",")) {
-        return trainDays.split(",").includes(day.toString());
-      }
-      const [from, to] = trainDays.split("-").map(Number);
-      return day >= from && day <= to;
-    }
+  if (!train) {
+    result.innerHTML = "<p>Nie znaleziono pociągu o podanym numerze.</p>";
+    return;
+  }
 
-    function showTimetable() {
-      const station = stationInput.value.trim();
-      const date = new Date(dateInput.value);
-      tbody.innerHTML = "";
-      table.style.display = "none";
+  let html = `<div class="result">`;
+  html += `<strong>${train.carrier}${train.category} ${train.number}</strong><br>`;
+  if (train.name) html += `<em>${train.name}</em><br>`;
+  html += `<strong>Dni kursowania:</strong> ${train.days}<br><br>`;
 
-      if (!station || !dateInput.value) {
-        alert("Wprowadź stację i datę.");
-        return;
-      }
+  html += `<table>
+    <tr>
+      <th>Stacja</th>
+      <th>Przyjazd</th>
+      <th>Odjazd</th>
+    </tr>`;
 
-      const matching = [];
+  for (const s of train.stops) {
+    html += `<tr>
+      <td>${s.station}</td>
+      <td>${s.arr ?? "--:--"}</td>
+      <td>${s.dep ?? "--:--"}</td>
+    </tr>`;
+  }
 
-      for (const train of trains) {
-        if (!dayMatches(train.days, date)) continue;
-        const stops = train.stops;
-        const index = stops.findIndex(s => s.station === station);
-        if (index === -1) continue;
+  html += `</table></div>`;
 
-        const stop = stops[index];
-        const from = index > 0 ? stops[0] : null;
-        const to = index < stops.length - 1 ? stops[stops.length - 1] : null;
-
-        const fromText = from
-          ? `<strong>${from.station}</strong> ${from.dep ?? ""}<br>` +
-            stops.slice(1, index).map(s => `${s.station} ${s.dep ?? ""}`).join(", ")
-          : "";
-
-        const toText = to
-          ? stops.slice(index + 1, stops.length - 1).map(s => `${s.station} ${s.arr ?? ""}`).join(", ") +
-            "<br><strong>" + to.station + "</strong> " + (to.arr ?? "")
-          : "";
-
-        matching.push({
-          train,
-          stop,
-          fromText,
-          toText
-        });
-      }
-
-      if (matching.length === 0) {
-        alert("Brak pociągów na tej stacji tego dnia.");
-        return;
-      }
-
-      // ✔️ SORTOWANIE CHRONOLOGICZNE
-      matching.sort((a, b) => {
-        const t1 = a.stop.arr || a.stop.dep;
-        const t2 = b.stop.arr || b.stop.dep;
-        return t1.localeCompare(t2);
-      });
-
-      for (const entry of matching) {
-        const t = entry.train;
-        const s = entry.stop;
-
-        const trainHTML = `<strong>${t.carrier} ${t.category}</strong> ${t.number}${t.name ? " <strong>" + t.name.toUpperCase() + "</strong>" : ""}`;
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${trainHTML}</td>
-          <td>${entry.fromText}</td>
-          <td>${s.arr ?? ""}</td>
-          <td>${s.dep ?? ""}</td>
-          <td>${entry.toText}</td>
-        `;
-        tbody.appendChild(row);
-      }
-
-      table.style.display = "table";
-    }
-  </script>
+  result.innerHTML = html;
+}
+</script>
 
 </body>
 </html>

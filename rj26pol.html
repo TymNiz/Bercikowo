@@ -10,7 +10,7 @@
       color: #222;
       padding: 20px;
     }
-    input, button, select {
+    input, button {
       padding: 6px;
       margin: 5px 0;
       font-size: 14px;
@@ -30,9 +30,6 @@
       margin-top: 5px;
       font-weight: bold;
     }
-    datalist option {
-      font-size: 14px;
-    }
     .timetable-line {
       font-family: monospace;
       white-space: pre;
@@ -41,26 +38,2021 @@
 </head>
 <body>
 
-  <h2>Wyszukiwarka połączeń</h2>
+<h2>Wyszukiwarka połączeń</h2>
 
-  <label>Stacja początkowa:
-    <input type="text" id="startStation" list="stations">
-  </label><br>
-  <label>Stacja końcowa:
-    <input type="text" id="endStation" list="stations">
-  </label><br>
-  <label>Data podróży: <input type="date" id="travelDate"></label><br>
-  <label>Godzina od: <input type="time" id="travelTime"></label><br>
-  <button onclick="searchConnections()">Szukaj połączeń</button>
+<label>Stacja początkowa:
+  <input type="text" id="startStation" list="stations">
+</label><br>
+<label>Stacja końcowa:
+  <input type="text" id="endStation" list="stations">
+</label><br>
+<label>Data podróży:
+  <input type="date" id="travelDate">
+</label><br>
+<label>Godzina od:
+  <input type="time" id="travelTime">
+</label><br>
+<button onclick="searchConnections()">Szukaj połączeń</button>
 
-  <datalist id="stations"></datalist>
+<datalist id="stations"></datalist>
 
-  <div id="results"></div>
-  <a> Powrót </a> <a href="rj26.html"> KLIK </a>
+<div id="results"></div>
 
-  <script>
-    const trains = [
-      {
+<script>
+const trains = [
+  {
+        number: "44100",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "03:30" },
+          { station: "Wilcza", arr: "03:35", dep: "03:36" },
+          { station: "Niżyńców", arr: "03:42", dep: "03:43" },
+		  { station: "Bercikowo Ligota", arr: "03:46", dep: "03:48" },
+		  { station: "Bercikowo", arr: "03:51", dep: "03:52" },
+		  { station: "Kozłów", arr: "03:58", dep: "03:58" },
+		  { station: "Lelis", arr: "04:02", dep: "04:02" },
+          { station: "Makieta", arr: "04:08", dep: null }
+        ]
+      },
+	  {
+        number: "44101",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "04:30" },
+          { station: "Lelis", arr: "04:36", dep: "04:36" },
+          { station: "Kozłów", arr: "04:40", dep: "04:40" },
+		  { station: "Bercikowo", arr: "04:46", dep: "04:47" },
+		  { station: "Bercikowo Ligota", arr: "04:50", dep: "04:52" },
+		  { station: "Niżyńców", arr: "04:55", dep: "04:56" },
+		  { station: "Wilcza", arr: "05:02", dep: "05:03" },
+          { station: "Piotrków", arr: "05:08", dep: null }
+        ]
+      },
+	  {
+        number: "44102",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "04:00" },
+          { station: "Wilcza", arr: "04:05", dep: "04:06" },
+          { station: "Niżyńców", arr: "04:12", dep: "04:13" },
+		  { station: "Bercikowo Ligota", arr: "04:16", dep: "04:18" },
+		  { station: "Bercikowo", arr: "04:21", dep: "04:22" },
+		  { station: "Kozłów", arr: "04:28", dep: "04:28" },
+		  { station: "Lelis", arr: "04:32", dep: "04:32" },
+          { station: "Makieta", arr: "04:38", dep: null }
+        ]
+      },
+	  {
+        number: "44103",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "05:00" },
+          { station: "Lelis", arr: "05:06", dep: "05:06" },
+          { station: "Kozłów", arr: "05:10", dep: "05:10" },
+		  { station: "Bercikowo", arr: "05:16", dep: "05:17" },
+		  { station: "Bercikowo Ligota", arr: "05:20", dep: "05:22" },
+		  { station: "Niżyńców", arr: "05:25", dep: "05:26" },
+		  { station: "Wilcza", arr: "05:32", dep: "05:33" },
+          { station: "Piotrków", arr: "05:38", dep: null }
+        ]
+      },
+	  {
+        number: "44104",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "04:30" },
+          { station: "Wilcza", arr: "04:35", dep: "04:36" },
+          { station: "Niżyńców", arr: "04:42", dep: "04:43" },
+		  { station: "Bercikowo Ligota", arr: "04:46", dep: "04:48" },
+		  { station: "Bercikowo", arr: "04:51", dep: "04:52" },
+		  { station: "Kozłów", arr: "04:58", dep: "04:58" },
+		  { station: "Lelis", arr: "05:02", dep: "05:02" },
+          { station: "Makieta", arr: "05:08", dep: null }
+        ]
+      },
+	  {
+        number: "44105",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "05:30" },
+          { station: "Lelis", arr: "05:36", dep: "05:36" },
+          { station: "Kozłów", arr: "05:40", dep: "05:40" },
+		  { station: "Bercikowo", arr: "05:46", dep: "05:47" },
+		  { station: "Bercikowo Ligota", arr: "05:50", dep: "05:52" },
+		  { station: "Niżyńców", arr: "05:55", dep: "05:56" },
+		  { station: "Wilcza", arr: "06:02", dep: "06:03" },
+          { station: "Piotrków", arr: "06:08", dep: null }
+        ]
+      },
+	  {
+        number: "44106",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "05:00" },
+          { station: "Wilcza", arr: "05:05", dep: "05:06" },
+          { station: "Niżyńców", arr: "05:12", dep: "05:13" },
+		  { station: "Bercikowo Ligota", arr: "05:16", dep: "05:18" },
+		  { station: "Bercikowo", arr: "05:21", dep: "05:22" },
+		  { station: "Kozłów", arr: "05:28", dep: "05:28" },
+		  { station: "Lelis", arr: "05:32", dep: "05:32" },
+          { station: "Makieta", arr: "05:38", dep: null }
+        ]
+      },
+	  {
+        number: "44107",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "06:00" },
+          { station: "Lelis", arr: "06:06", dep: "06:06" },
+          { station: "Kozłów", arr: "06:10", dep: "06:10" },
+		  { station: "Bercikowo", arr: "06:16", dep: "06:17" },
+		  { station: "Bercikowo Ligota", arr: "06:20", dep: "06:22" },
+		  { station: "Niżyńców", arr: "06:25", dep: "06:26" },
+		  { station: "Wilcza", arr: "06:32", dep: "06:33" },
+          { station: "Piotrków", arr: "06:38", dep: null }
+        ]
+      },
+	  {
+        number: "44108",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "05:30" },
+          { station: "Wilcza", arr: "05:35", dep: "05:36" },
+          { station: "Niżyńców", arr: "05:42", dep: "05:43" },
+		  { station: "Bercikowo Ligota", arr: "05:46", dep: "05:48" },
+		  { station: "Bercikowo", arr: "05:51", dep: "05:52" },
+		  { station: "Kozłów", arr: "05:58", dep: "05:58" },
+		  { station: "Lelis", arr: "06:02", dep: "06:02" },
+          { station: "Makieta", arr: "06:08", dep: null }
+        ]
+      },
+	  {
+        number: "44109",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "06:30" },
+          { station: "Lelis", arr: "06:36", dep: "06:36" },
+          { station: "Kozłów", arr: "06:40", dep: "06:40" },
+		  { station: "Bercikowo", arr: "06:46", dep: "06:47" },
+		  { station: "Bercikowo Ligota", arr: "06:50", dep: "06:52" },
+		  { station: "Niżyńców", arr: "06:55", dep: "06:56" },
+		  { station: "Wilcza", arr: "07:02", dep: "07:03" },
+          { station: "Piotrków", arr: "07:08", dep: null }
+        ]
+      },
+	  {
+        number: "44110",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "06:00" },
+          { station: "Wilcza", arr: "06:05", dep: "06:06" },
+          { station: "Niżyńców", arr: "06:12", dep: "06:13" },
+		  { station: "Bercikowo Ligota", arr: "06:16", dep: "06:18" },
+		  { station: "Bercikowo", arr: "06:21", dep: "06:22" },
+		  { station: "Kozłów", arr: "06:28", dep: "06:28" },
+		  { station: "Lelis", arr: "06:32", dep: "06:32" },
+          { station: "Makieta", arr: "06:38", dep: null }
+        ]
+      },
+	  {
+        number: "44111",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "07:00" },
+          { station: "Lelis", arr: "07:06", dep: "07:06" },
+          { station: "Kozłów", arr: "07:10", dep: "07:10" },
+		  { station: "Bercikowo", arr: "07:16", dep: "07:17" },
+		  { station: "Bercikowo Ligota", arr: "07:20", dep: "07:22" },
+		  { station: "Niżyńców", arr: "07:25", dep: "07:26" },
+		  { station: "Wilcza", arr: "07:32", dep: "07:33" },
+          { station: "Piotrków", arr: "07:38", dep: null }
+        ]
+      },
+	  {
+        number: "44112",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "06:30" },
+          { station: "Wilcza", arr: "06:35", dep: "06:36" },
+          { station: "Niżyńców", arr: "06:42", dep: "06:43" },
+		  { station: "Bercikowo Ligota", arr: "06:46", dep: "06:48" },
+		  { station: "Bercikowo", arr: "06:51", dep: "06:52" },
+		  { station: "Kozłów", arr: "06:58", dep: "06:58" },
+		  { station: "Lelis", arr: "07:02", dep: "07:02" },
+          { station: "Makieta", arr: "07:08", dep: null }
+        ]
+      },
+	  {
+        number: "44113",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "07:30" },
+          { station: "Lelis", arr: "07:36", dep: "07:36" },
+          { station: "Kozłów", arr: "07:40", dep: "07:40" },
+		  { station: "Bercikowo", arr: "07:46", dep: "07:47" },
+		  { station: "Bercikowo Ligota", arr: "07:50", dep: "07:52" },
+		  { station: "Niżyńców", arr: "07:55", dep: "07:56" },
+		  { station: "Wilcza", arr: "08:02", dep: "08:03" },
+          { station: "Piotrków", arr: "08:08", dep: null }
+        ]
+      },
+	  {
+        number: "44114",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "07:00" },
+          { station: "Wilcza", arr: "07:05", dep: "07:06" },
+          { station: "Niżyńców", arr: "07:12", dep: "07:13" },
+		  { station: "Bercikowo Ligota", arr: "07:16", dep: "07:18" },
+		  { station: "Bercikowo", arr: "07:21", dep: "07:22" },
+		  { station: "Kozłów", arr: "07:28", dep: "07:28" },
+		  { station: "Lelis", arr: "07:32", dep: "07:32" },
+          { station: "Makieta", arr: "07:38", dep: null }
+        ]
+      },
+	  {
+        number: "44115",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "08:00" },
+          { station: "Lelis", arr: "08:06", dep: "08:06" },
+          { station: "Kozłów", arr: "08:10", dep: "08:10" },
+		  { station: "Bercikowo", arr: "08:16", dep: "08:17" },
+		  { station: "Bercikowo Ligota", arr: "08:20", dep: "08:22" },
+		  { station: "Niżyńców", arr: "08:25", dep: "08:26" },
+		  { station: "Wilcza", arr: "08:32", dep: "08:33" },
+          { station: "Piotrków", arr: "08:38", dep: null }
+        ]
+      },
+	  {
+        number: "44116",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "07:30" },
+          { station: "Wilcza", arr: "07:35", dep: "07:36" },
+          { station: "Niżyńców", arr: "07:42", dep: "07:43" },
+		  { station: "Bercikowo Ligota", arr: "07:46", dep: "07:48" },
+		  { station: "Bercikowo", arr: "07:51", dep: "07:52" },
+		  { station: "Kozłów", arr: "07:58", dep: "07:58" },
+		  { station: "Lelis", arr: "08:02", dep: "08:02" },
+          { station: "Makieta", arr: "08:08", dep: null }
+        ]
+      },
+	  {
+        number: "44117",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "08:30" },
+          { station: "Lelis", arr: "08:36", dep: "08:36" },
+          { station: "Kozłów", arr: "08:40", dep: "08:40" },
+		  { station: "Bercikowo", arr: "08:46", dep: "08:47" },
+		  { station: "Bercikowo Ligota", arr: "08:50", dep: "08:52" },
+		  { station: "Niżyńców", arr: "08:55", dep: "08:56" },
+		  { station: "Wilcza", arr: "09:02", dep: "09:03" },
+          { station: "Piotrków", arr: "09:08", dep: null }
+        ]
+      },
+	  {
+        number: "44118",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "08:00" },
+          { station: "Wilcza", arr: "08:05", dep: "08:06" },
+          { station: "Niżyńców", arr: "08:12", dep: "08:13" },
+		  { station: "Bercikowo Ligota", arr: "08:16", dep: "08:18" },
+		  { station: "Bercikowo", arr: "08:21", dep: "08:22" },
+		  { station: "Kozłów", arr: "08:28", dep: "08:28" },
+		  { station: "Lelis", arr: "08:32", dep: "08:32" },
+          { station: "Makieta", arr: "08:38", dep: null }
+        ]
+      },
+	  {
+        number: "44119",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "09:00" },
+          { station: "Lelis", arr: "09:06", dep: "09:06" },
+          { station: "Kozłów", arr: "09:10", dep: "09:10" },
+		  { station: "Bercikowo", arr: "09:16", dep: "09:17" },
+		  { station: "Bercikowo Ligota", arr: "09:20", dep: "09:22" },
+		  { station: "Niżyńców", arr: "09:25", dep: "09:26" },
+		  { station: "Wilcza", arr: "09:32", dep: "09:33" },
+          { station: "Piotrków", arr: "09:38", dep: null }
+        ]
+      },
+	  {
+        number: "44120",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "08:30" },
+          { station: "Wilcza", arr: "08:35", dep: "08:36" },
+          { station: "Niżyńców", arr: "08:42", dep: "08:43" },
+		  { station: "Bercikowo Ligota", arr: "08:46", dep: "08:48" },
+		  { station: "Bercikowo", arr: "08:51", dep: "08:52" },
+		  { station: "Kozłów", arr: "08:58", dep: "08:58" },
+		  { station: "Lelis", arr: "09:02", dep: "09:02" },
+          { station: "Makieta", arr: "09:08", dep: null }
+        ]
+      },
+	  {
+        number: "44121",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "09:30" },
+          { station: "Lelis", arr: "09:36", dep: "09:36" },
+          { station: "Kozłów", arr: "09:40", dep: "09:40" },
+		  { station: "Bercikowo", arr: "09:46", dep: "09:47" },
+		  { station: "Bercikowo Ligota", arr: "09:50", dep: "09:52" },
+		  { station: "Niżyńców", arr: "09:55", dep: "09:56" },
+		  { station: "Wilcza", arr: "10:02", dep: "10:03" },
+          { station: "Piotrków", arr: "10:08", dep: null }
+        ]
+      },
+	  {
+        number: "44122",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "09:00" },
+          { station: "Wilcza", arr: "09:05", dep: "09:06" },
+          { station: "Niżyńców", arr: "09:12", dep: "09:13" },
+		  { station: "Bercikowo Ligota", arr: "09:16", dep: "09:18" },
+		  { station: "Bercikowo", arr: "09:21", dep: "09:22" },
+		  { station: "Kozłów", arr: "09:28", dep: "09:28" },
+		  { station: "Lelis", arr: "09:32", dep: "09:32" },
+          { station: "Makieta", arr: "09:38", dep: null }
+        ]
+      },
+	  {
+        number: "44123",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "10:00" },
+          { station: "Lelis", arr: "10:06", dep: "10:06" },
+          { station: "Kozłów", arr: "10:10", dep: "10:10" },
+		  { station: "Bercikowo", arr: "10:16", dep: "10:17" },
+		  { station: "Bercikowo Ligota", arr: "10:20", dep: "10:22" },
+		  { station: "Niżyńców", arr: "10:25", dep: "10:26" },
+		  { station: "Wilcza", arr: "10:32", dep: "10:33" },
+          { station: "Piotrków", arr: "10:38", dep: null }
+        ]
+      },
+	  {
+        number: "44124",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "09:30" },
+          { station: "Wilcza", arr: "09:35", dep: "09:36" },
+          { station: "Niżyńców", arr: "09:42", dep: "09:43" },
+		  { station: "Bercikowo Ligota", arr: "09:46", dep: "09:48" },
+		  { station: "Bercikowo", arr: "09:51", dep: "09:52" },
+		  { station: "Kozłów", arr: "09:58", dep: "09:58" },
+		  { station: "Lelis", arr: "10:02", dep: "10:02" },
+          { station: "Makieta", arr: "10:08", dep: null }
+        ]
+      },
+	  {
+        number: "44125",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "10:30" },
+          { station: "Lelis", arr: "10:36", dep: "10:36" },
+          { station: "Kozłów", arr: "10:40", dep: "10:40" },
+		  { station: "Bercikowo", arr: "10:46", dep: "10:47" },
+		  { station: "Bercikowo Ligota", arr: "10:50", dep: "10:52" },
+		  { station: "Niżyńców", arr: "10:55", dep: "10:56" },
+		  { station: "Wilcza", arr: "11:02", dep: "11:03" },
+          { station: "Piotrków", arr: "11:08", dep: null }
+        ]
+      },
+	  {
+        number: "44126",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "10:00" },
+          { station: "Wilcza", arr: "10:05", dep: "10:06" },
+          { station: "Niżyńców", arr: "10:12", dep: "10:13" },
+		  { station: "Bercikowo Ligota", arr: "10:16", dep: "10:18" },
+		  { station: "Bercikowo", arr: "10:21", dep: "10:22" },
+		  { station: "Kozłów", arr: "10:28", dep: "10:28" },
+		  { station: "Lelis", arr: "10:32", dep: "10:32" },
+          { station: "Makieta", arr: "10:38", dep: null }
+        ]
+      },
+	  {
+        number: "44127",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "11:00" },
+          { station: "Lelis", arr: "11:06", dep: "11:06" },
+          { station: "Kozłów", arr: "11:10", dep: "11:10" },
+		  { station: "Bercikowo", arr: "11:16", dep: "11:17" },
+		  { station: "Bercikowo Ligota", arr: "11:20", dep: "11:22" },
+		  { station: "Niżyńców", arr: "11:25", dep: "11:26" },
+		  { station: "Wilcza", arr: "11:32", dep: "11:33" },
+          { station: "Piotrków", arr: "11:38", dep: null }
+        ]
+      },
+	  {
+        number: "44128",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "10:30" },
+          { station: "Wilcza", arr: "10:35", dep: "10:36" },
+          { station: "Niżyńców", arr: "10:42", dep: "10:43" },
+		  { station: "Bercikowo Ligota", arr: "10:46", dep: "10:48" },
+		  { station: "Bercikowo", arr: "10:51", dep: "10:52" },
+		  { station: "Kozłów", arr: "10:58", dep: "10:58" },
+		  { station: "Lelis", arr: "11:02", dep: "11:02" },
+          { station: "Makieta", arr: "11:08", dep: null }
+        ]
+      },
+	  {
+        number: "44129",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "11:30" },
+          { station: "Lelis", arr: "11:36", dep: "11:36" },
+          { station: "Kozłów", arr: "11:40", dep: "11:40" },
+		  { station: "Bercikowo", arr: "11:46", dep: "11:47" },
+		  { station: "Bercikowo Ligota", arr: "11:50", dep: "11:52" },
+		  { station: "Niżyńców", arr: "11:55", dep: "11:56" },
+		  { station: "Wilcza", arr: "12:02", dep: "12:03" },
+          { station: "Piotrków", arr: "12:08", dep: null }
+        ]
+      },
+	  {
+        number: "44130",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "11:00" },
+          { station: "Wilcza", arr: "11:05", dep: "11:06" },
+          { station: "Niżyńców", arr: "11:12", dep: "11:13" },
+		  { station: "Bercikowo Ligota", arr: "11:16", dep: "11:18" },
+		  { station: "Bercikowo", arr: "11:21", dep: "11:22" },
+		  { station: "Kozłów", arr: "11:28", dep: "11:28" },
+		  { station: "Lelis", arr: "11:32", dep: "11:32" },
+          { station: "Makieta", arr: "11:38", dep: null }
+        ]
+      },
+	  {
+        number: "44131",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "12:00" },
+          { station: "Lelis", arr: "12:06", dep: "12:06" },
+          { station: "Kozłów", arr: "12:10", dep: "12:10" },
+		  { station: "Bercikowo", arr: "12:16", dep: "12:17" },
+		  { station: "Bercikowo Ligota", arr: "12:20", dep: "12:22" },
+		  { station: "Niżyńców", arr: "12:25", dep: "12:26" },
+		  { station: "Wilcza", arr: "12:32", dep: "12:33" },
+          { station: "Piotrków", arr: "12:38", dep: null }
+        ]
+      },
+	  {
+        number: "44132",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "11:30" },
+          { station: "Wilcza", arr: "11:35", dep: "11:36" },
+          { station: "Niżyńców", arr: "11:42", dep: "11:43" },
+		  { station: "Bercikowo Ligota", arr: "11:46", dep: "11:48" },
+		  { station: "Bercikowo", arr: "11:51", dep: "11:52" },
+		  { station: "Kozłów", arr: "11:58", dep: "11:58" },
+		  { station: "Lelis", arr: "12:02", dep: "12:02" },
+          { station: "Makieta", arr: "12:08", dep: null }
+        ]
+      },
+	  {
+        number: "44133",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "12:30" },
+          { station: "Lelis", arr: "12:36", dep: "12:36" },
+          { station: "Kozłów", arr: "12:40", dep: "12:40" },
+		  { station: "Bercikowo", arr: "12:46", dep: "12:47" },
+		  { station: "Bercikowo Ligota", arr: "12:50", dep: "12:52" },
+		  { station: "Niżyńców", arr: "12:55", dep: "12:56" },
+		  { station: "Wilcza", arr: "13:02", dep: "13:03" },
+          { station: "Piotrków", arr: "13:08", dep: null }
+        ]
+      },
+	  {
+        number: "44134",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "12:00" },
+          { station: "Wilcza", arr: "12:05", dep: "12:06" },
+          { station: "Niżyńców", arr: "12:12", dep: "12:13" },
+		  { station: "Bercikowo Ligota", arr: "12:16", dep: "12:18" },
+		  { station: "Bercikowo", arr: "12:21", dep: "12:22" },
+		  { station: "Kozłów", arr: "12:28", dep: "12:28" },
+		  { station: "Lelis", arr: "12:32", dep: "12:32" },
+          { station: "Makieta", arr: "12:38", dep: null }
+        ]
+      },
+	  {
+        number: "44135",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "13:00" },
+          { station: "Lelis", arr: "13:06", dep: "13:06" },
+          { station: "Kozłów", arr: "13:10", dep: "13:10" },
+		  { station: "Bercikowo", arr: "13:16", dep: "13:17" },
+		  { station: "Bercikowo Ligota", arr: "13:20", dep: "13:22" },
+		  { station: "Niżyńców", arr: "13:25", dep: "13:26" },
+		  { station: "Wilcza", arr: "13:32", dep: "13:33" },
+          { station: "Piotrków", arr: "13:38", dep: null }
+        ]
+      },
+	  {
+        number: "44136",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "12:30" },
+          { station: "Wilcza", arr: "12:35", dep: "12:36" },
+          { station: "Niżyńców", arr: "12:42", dep: "12:43" },
+		  { station: "Bercikowo Ligota", arr: "12:46", dep: "12:48" },
+		  { station: "Bercikowo", arr: "12:51", dep: "12:52" },
+		  { station: "Kozłów", arr: "12:58", dep: "12:58" },
+		  { station: "Lelis", arr: "13:02", dep: "13:02" },
+          { station: "Makieta", arr: "13:08", dep: null }
+        ]
+      },
+	  {
+        number: "44137",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "13:30" },
+          { station: "Lelis", arr: "13:36", dep: "13:36" },
+          { station: "Kozłów", arr: "13:40", dep: "13:40" },
+		  { station: "Bercikowo", arr: "13:46", dep: "13:47" },
+		  { station: "Bercikowo Ligota", arr: "13:50", dep: "13:52" },
+		  { station: "Niżyńców", arr: "13:55", dep: "13:56" },
+		  { station: "Wilcza", arr: "14:02", dep: "14:03" },
+          { station: "Piotrków", arr: "14:08", dep: null }
+        ]
+      },
+	  {
+        number: "44138",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "13:00" },
+          { station: "Wilcza", arr: "13:05", dep: "13:06" },
+          { station: "Niżyńców", arr: "13:12", dep: "13:13" },
+		  { station: "Bercikowo Ligota", arr: "13:16", dep: "13:18" },
+		  { station: "Bercikowo", arr: "13:21", dep: "13:22" },
+		  { station: "Kozłów", arr: "13:28", dep: "13:28" },
+		  { station: "Lelis", arr: "13:32", dep: "13:32" },
+          { station: "Makieta", arr: "13:38", dep: null }
+        ]
+      },
+	  {
+        number: "44139",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "14:00" },
+          { station: "Lelis", arr: "14:06", dep: "14:06" },
+          { station: "Kozłów", arr: "14:10", dep: "14:10" },
+		  { station: "Bercikowo", arr: "14:16", dep: "14:17" },
+		  { station: "Bercikowo Ligota", arr: "14:20", dep: "14:22" },
+		  { station: "Niżyńców", arr: "14:25", dep: "14:26" },
+		  { station: "Wilcza", arr: "14:32", dep: "14:33" },
+          { station: "Piotrków", arr: "14:38", dep: null }
+        ]
+      },
+	  {
+        number: "44140",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "13:30" },
+          { station: "Wilcza", arr: "13:35", dep: "13:36" },
+          { station: "Niżyńców", arr: "13:42", dep: "13:43" },
+		  { station: "Bercikowo Ligota", arr: "13:46", dep: "13:48" },
+		  { station: "Bercikowo", arr: "13:51", dep: "13:52" },
+		  { station: "Kozłów", arr: "13:58", dep: "13:58" },
+		  { station: "Lelis", arr: "14:02", dep: "14:02" },
+          { station: "Makieta", arr: "14:08", dep: null }
+        ]
+      },
+	  {
+        number: "44141",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "14:30" },
+          { station: "Lelis", arr: "14:36", dep: "14:36" },
+          { station: "Kozłów", arr: "14:40", dep: "14:40" },
+		  { station: "Bercikowo", arr: "14:46", dep: "14:47" },
+		  { station: "Bercikowo Ligota", arr: "14:50", dep: "14:52" },
+		  { station: "Niżyńców", arr: "14:55", dep: "14:56" },
+		  { station: "Wilcza", arr: "15:02", dep: "15:03" },
+          { station: "Piotrków", arr: "15:08", dep: null }
+        ]
+      },
+	  {
+        number: "44142",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "14:00" },
+          { station: "Wilcza", arr: "14:05", dep: "14:06" },
+          { station: "Niżyńców", arr: "14:12", dep: "14:13" },
+		  { station: "Bercikowo Ligota", arr: "14:16", dep: "14:18" },
+		  { station: "Bercikowo", arr: "14:21", dep: "14:22" },
+		  { station: "Kozłów", arr: "14:28", dep: "14:28" },
+		  { station: "Lelis", arr: "14:32", dep: "14:32" },
+          { station: "Makieta", arr: "14:38", dep: null }
+        ]
+      },
+	  {
+        number: "44143",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "15:00" },
+          { station: "Lelis", arr: "15:06", dep: "15:06" },
+          { station: "Kozłów", arr: "15:10", dep: "15:10" },
+		  { station: "Bercikowo", arr: "15:16", dep: "15:17" },
+		  { station: "Bercikowo Ligota", arr: "15:20", dep: "15:22" },
+		  { station: "Niżyńców", arr: "15:25", dep: "15:26" },
+		  { station: "Wilcza", arr: "15:32", dep: "15:33" },
+          { station: "Piotrków", arr: "15:38", dep: null }
+        ]
+      },
+	  {
+        number: "44144",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "14:30" },
+          { station: "Wilcza", arr: "14:35", dep: "14:36" },
+          { station: "Niżyńców", arr: "14:42", dep: "14:43" },
+		  { station: "Bercikowo Ligota", arr: "14:46", dep: "14:48" },
+		  { station: "Bercikowo", arr: "14:51", dep: "14:52" },
+		  { station: "Kozłów", arr: "14:58", dep: "14:58" },
+		  { station: "Lelis", arr: "15:02", dep: "15:02" },
+          { station: "Makieta", arr: "15:08", dep: null }
+        ]
+      },
+	  {
+        number: "44145",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "15:30" },
+          { station: "Lelis", arr: "15:36", dep: "15:36" },
+          { station: "Kozłów", arr: "15:40", dep: "15:40" },
+		  { station: "Bercikowo", arr: "15:46", dep: "15:47" },
+		  { station: "Bercikowo Ligota", arr: "15:50", dep: "15:52" },
+		  { station: "Niżyńców", arr: "15:55", dep: "15:56" },
+		  { station: "Wilcza", arr: "16:02", dep: "16:03" },
+          { station: "Piotrków", arr: "16:08", dep: null }
+        ]
+      },
+	  {
+        number: "44146",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "15:00" },
+          { station: "Wilcza", arr: "15:05", dep: "15:06" },
+          { station: "Niżyńców", arr: "15:12", dep: "15:13" },
+		  { station: "Bercikowo Ligota", arr: "15:16", dep: "15:18" },
+		  { station: "Bercikowo", arr: "15:21", dep: "15:22" },
+		  { station: "Kozłów", arr: "15:28", dep: "15:28" },
+		  { station: "Lelis", arr: "15:32", dep: "15:32" },
+          { station: "Makieta", arr: "15:38", dep: null }
+        ]
+      },
+	  {
+        number: "44147",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "16:00" },
+          { station: "Lelis", arr: "16:06", dep: "16:06" },
+          { station: "Kozłów", arr: "16:10", dep: "16:10" },
+		  { station: "Bercikowo", arr: "16:16", dep: "16:17" },
+		  { station: "Bercikowo Ligota", arr: "16:20", dep: "16:22" },
+		  { station: "Niżyńców", arr: "16:25", dep: "16:26" },
+		  { station: "Wilcza", arr: "16:32", dep: "16:33" },
+          { station: "Piotrków", arr: "16:38", dep: null }
+        ]
+      },
+	  {
+        number: "44148",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "15:30" },
+          { station: "Wilcza", arr: "15:35", dep: "15:36" },
+          { station: "Niżyńców", arr: "15:42", dep: "15:43" },
+		  { station: "Bercikowo Ligota", arr: "15:46", dep: "15:48" },
+		  { station: "Bercikowo", arr: "15:51", dep: "15:52" },
+		  { station: "Kozłów", arr: "15:58", dep: "15:58" },
+		  { station: "Lelis", arr: "16:02", dep: "16:02" },
+          { station: "Makieta", arr: "16:08", dep: null }
+        ]
+      },
+	  {
+        number: "44149",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "16:30" },
+          { station: "Lelis", arr: "16:36", dep: "16:36" },
+          { station: "Kozłów", arr: "16:40", dep: "16:40" },
+		  { station: "Bercikowo", arr: "16:46", dep: "16:47" },
+		  { station: "Bercikowo Ligota", arr: "16:50", dep: "16:52" },
+		  { station: "Niżyńców", arr: "16:55", dep: "16:56" },
+		  { station: "Wilcza", arr: "17:02", dep: "17:03" },
+          { station: "Piotrków", arr: "17:08", dep: null }
+        ]
+      },
+	  {
+        number: "44150",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "16:00" },
+          { station: "Wilcza", arr: "16:05", dep: "16:06" },
+          { station: "Niżyńców", arr: "16:12", dep: "16:13" },
+		  { station: "Bercikowo Ligota", arr: "16:16", dep: "16:18" },
+		  { station: "Bercikowo", arr: "16:21", dep: "16:22" },
+		  { station: "Kozłów", arr: "16:28", dep: "16:28" },
+		  { station: "Lelis", arr: "16:32", dep: "16:32" },
+          { station: "Makieta", arr: "16:38", dep: null }
+        ]
+      },
+	  {
+        number: "44151",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "17:00" },
+          { station: "Lelis", arr: "17:06", dep: "17:06" },
+          { station: "Kozłów", arr: "17:10", dep: "17:10" },
+		  { station: "Bercikowo", arr: "17:16", dep: "17:17" },
+		  { station: "Bercikowo Ligota", arr: "17:20", dep: "17:22" },
+		  { station: "Niżyńców", arr: "17:25", dep: "17:26" },
+		  { station: "Wilcza", arr: "17:32", dep: "17:33" },
+          { station: "Piotrków", arr: "17:38", dep: null }
+        ]
+      },
+	  {
+        number: "44152",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "16:30" },
+          { station: "Wilcza", arr: "16:35", dep: "16:36" },
+          { station: "Niżyńców", arr: "16:42", dep: "16:43" },
+		  { station: "Bercikowo Ligota", arr: "16:46", dep: "16:48" },
+		  { station: "Bercikowo", arr: "16:51", dep: "16:52" },
+		  { station: "Kozłów", arr: "16:58", dep: "16:58" },
+		  { station: "Lelis", arr: "17:02", dep: "17:02" },
+          { station: "Makieta", arr: "17:08", dep: null }
+        ]
+      },
+	  {
+        number: "44153",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "17:30" },
+          { station: "Lelis", arr: "17:36", dep: "17:36" },
+          { station: "Kozłów", arr: "17:40", dep: "17:40" },
+		  { station: "Bercikowo", arr: "17:46", dep: "17:47" },
+		  { station: "Bercikowo Ligota", arr: "17:50", dep: "17:52" },
+		  { station: "Niżyńców", arr: "17:55", dep: "17:56" },
+		  { station: "Wilcza", arr: "18:02", dep: "18:03" },
+          { station: "Piotrków", arr: "18:08", dep: null }
+        ]
+      },
+	  {
+        number: "44154",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "17:00" },
+          { station: "Wilcza", arr: "17:05", dep: "17:06" },
+          { station: "Niżyńców", arr: "17:12", dep: "17:13" },
+		  { station: "Bercikowo Ligota", arr: "17:16", dep: "17:18" },
+		  { station: "Bercikowo", arr: "17:21", dep: "17:22" },
+		  { station: "Kozłów", arr: "17:28", dep: "17:28" },
+		  { station: "Lelis", arr: "17:32", dep: "17:32" },
+          { station: "Makieta", arr: "17:38", dep: null }
+        ]
+      },
+	  {
+        number: "44155",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "18:00" },
+          { station: "Lelis", arr: "18:06", dep: "18:06" },
+          { station: "Kozłów", arr: "18:10", dep: "18:10" },
+		  { station: "Bercikowo", arr: "18:16", dep: "18:17" },
+		  { station: "Bercikowo Ligota", arr: "18:20", dep: "18:22" },
+		  { station: "Niżyńców", arr: "18:25", dep: "18:26" },
+		  { station: "Wilcza", arr: "18:32", dep: "18:33" },
+          { station: "Piotrków", arr: "18:38", dep: null }
+        ]
+      },
+	  {
+        number: "44156",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "17:30" },
+          { station: "Wilcza", arr: "17:35", dep: "17:36" },
+          { station: "Niżyńców", arr: "17:42", dep: "17:43" },
+		  { station: "Bercikowo Ligota", arr: "17:46", dep: "17:48" },
+		  { station: "Bercikowo", arr: "17:51", dep: "17:52" },
+		  { station: "Kozłów", arr: "17:58", dep: "17:58" },
+		  { station: "Lelis", arr: "18:02", dep: "18:02" },
+          { station: "Makieta", arr: "18:08", dep: null }
+        ]
+      },
+	  {
+        number: "44157",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "18:30" },
+          { station: "Lelis", arr: "18:36", dep: "18:36" },
+          { station: "Kozłów", arr: "18:40", dep: "18:40" },
+		  { station: "Bercikowo", arr: "18:46", dep: "18:47" },
+		  { station: "Bercikowo Ligota", arr: "18:50", dep: "18:52" },
+		  { station: "Niżyńców", arr: "18:55", dep: "18:56" },
+		  { station: "Wilcza", arr: "19:02", dep: "19:03" },
+          { station: "Piotrków", arr: "19:08", dep: null }
+        ]
+      },
+	  {
+        number: "44158",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "18:00" },
+          { station: "Wilcza", arr: "18:05", dep: "18:06" },
+          { station: "Niżyńców", arr: "18:12", dep: "18:13" },
+		  { station: "Bercikowo Ligota", arr: "18:16", dep: "18:18" },
+		  { station: "Bercikowo", arr: "18:21", dep: "18:22" },
+		  { station: "Kozłów", arr: "18:28", dep: "18:28" },
+		  { station: "Lelis", arr: "18:32", dep: "18:32" },
+          { station: "Makieta", arr: "18:38", dep: null }
+        ]
+      },
+	  {
+        number: "44159",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "19:00" },
+          { station: "Lelis", arr: "19:06", dep: "19:06" },
+          { station: "Kozłów", arr: "19:10", dep: "19:10" },
+		  { station: "Bercikowo", arr: "19:16", dep: "19:17" },
+		  { station: "Bercikowo Ligota", arr: "19:20", dep: "19:22" },
+		  { station: "Niżyńców", arr: "19:25", dep: "19:26" },
+		  { station: "Wilcza", arr: "19:32", dep: "19:33" },
+          { station: "Piotrków", arr: "19:38", dep: null }
+        ]
+      },
+	  {
+        number: "44160",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "18:30" },
+          { station: "Wilcza", arr: "18:35", dep: "18:36" },
+          { station: "Niżyńców", arr: "18:42", dep: "18:43" },
+		  { station: "Bercikowo Ligota", arr: "18:46", dep: "18:48" },
+		  { station: "Bercikowo", arr: "18:51", dep: "18:52" },
+		  { station: "Kozłów", arr: "18:58", dep: "18:58" },
+		  { station: "Lelis", arr: "19:02", dep: "19:02" },
+          { station: "Makieta", arr: "19:08", dep: null }
+        ]
+      },
+	  {
+        number: "44161",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "19:30" },
+          { station: "Lelis", arr: "19:36", dep: "19:36" },
+          { station: "Kozłów", arr: "19:40", dep: "19:40" },
+		  { station: "Bercikowo", arr: "19:46", dep: "19:47" },
+		  { station: "Bercikowo Ligota", arr: "19:50", dep: "19:52" },
+		  { station: "Niżyńców", arr: "19:55", dep: "19:56" },
+		  { station: "Wilcza", arr: "20:02", dep: "20:03" },
+          { station: "Piotrków", arr: "20:08", dep: null }
+        ]
+      },
+	  {
+        number: "44162",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "19:00" },
+          { station: "Wilcza", arr: "19:05", dep: "19:06" },
+          { station: "Niżyńców", arr: "19:12", dep: "19:13" },
+		  { station: "Bercikowo Ligota", arr: "19:16", dep: "19:18" },
+		  { station: "Bercikowo", arr: "19:21", dep: "19:22" },
+		  { station: "Kozłów", arr: "19:28", dep: "19:28" },
+		  { station: "Lelis", arr: "19:32", dep: "19:32" },
+          { station: "Makieta", arr: "19:38", dep: null }
+        ]
+      },
+	  {
+        number: "44163",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "20:00" },
+          { station: "Lelis", arr: "20:06", dep: "20:06" },
+          { station: "Kozłów", arr: "20:10", dep: "20:10" },
+		  { station: "Bercikowo", arr: "20:16", dep: "20:17" },
+		  { station: "Bercikowo Ligota", arr: "20:20", dep: "20:22" },
+		  { station: "Niżyńców", arr: "20:25", dep: "20:26" },
+		  { station: "Wilcza", arr: "20:32", dep: "20:33" },
+          { station: "Piotrków", arr: "20:38", dep: null }
+        ]
+      },
+	  {
+        number: "44164",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "19:30" },
+          { station: "Wilcza", arr: "19:35", dep: "19:36" },
+          { station: "Niżyńców", arr: "19:42", dep: "19:43" },
+		  { station: "Bercikowo Ligota", arr: "19:46", dep: "19:48" },
+		  { station: "Bercikowo", arr: "19:51", dep: "19:52" },
+		  { station: "Kozłów", arr: "19:58", dep: "19:58" },
+		  { station: "Lelis", arr: "20:02", dep: "20:02" },
+          { station: "Makieta", arr: "20:08", dep: null }
+        ]
+      },
+	  {
+        number: "44165",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "20:30" },
+          { station: "Lelis", arr: "20:36", dep: "20:36" },
+          { station: "Kozłów", arr: "20:40", dep: "20:40" },
+		  { station: "Bercikowo", arr: "20:46", dep: "20:47" },
+		  { station: "Bercikowo Ligota", arr: "20:50", dep: "20:52" },
+		  { station: "Niżyńców", arr: "20:55", dep: "20:56" },
+		  { station: "Wilcza", arr: "21:02", dep: "21:03" },
+          { station: "Piotrków", arr: "21:08", dep: null }
+        ]
+      },
+	  {
+        number: "44166",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "20:00" },
+          { station: "Wilcza", arr: "20:05", dep: "20:06" },
+          { station: "Niżyńców", arr: "20:12", dep: "20:13" },
+		  { station: "Bercikowo Ligota", arr: "20:16", dep: "20:18" },
+		  { station: "Bercikowo", arr: "20:21", dep: "20:22" },
+		  { station: "Kozłów", arr: "20:28", dep: "20:28" },
+		  { station: "Lelis", arr: "20:32", dep: "20:32" },
+          { station: "Makieta", arr: "20:38", dep: null }
+        ]
+      },
+	  {
+        number: "44167",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "21:00" },
+          { station: "Lelis", arr: "21:06", dep: "21:06" },
+          { station: "Kozłów", arr: "21:10", dep: "21:10" },
+		  { station: "Bercikowo", arr: "21:16", dep: "21:17" },
+		  { station: "Bercikowo Ligota", arr: "21:20", dep: "21:22" },
+		  { station: "Niżyńców", arr: "21:25", dep: "21:26" },
+		  { station: "Wilcza", arr: "21:32", dep: "21:33" },
+          { station: "Piotrków", arr: "21:38", dep: null }
+        ]
+      },
+	  {
+        number: "44168",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "20:30" },
+          { station: "Wilcza", arr: "20:35", dep: "20:36" },
+          { station: "Niżyńców", arr: "20:42", dep: "20:43" },
+		  { station: "Bercikowo Ligota", arr: "20:46", dep: "20:48" },
+		  { station: "Bercikowo", arr: "20:51", dep: "20:52" },
+		  { station: "Kozłów", arr: "20:58", dep: "20:58" },
+		  { station: "Lelis", arr: "21:02", dep: "21:02" },
+          { station: "Makieta", arr: "21:08", dep: null }
+        ]
+      },
+	  {
+        number: "44169",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "21:30" },
+          { station: "Lelis", arr: "21:36", dep: "21:36" },
+          { station: "Kozłów", arr: "21:40", dep: "21:40" },
+		  { station: "Bercikowo", arr: "21:46", dep: "21:47" },
+		  { station: "Bercikowo Ligota", arr: "21:50", dep: "21:52" },
+		  { station: "Niżyńców", arr: "21:55", dep: "21:56" },
+		  { station: "Wilcza", arr: "22:02", dep: "22:03" },
+          { station: "Piotrków", arr: "22:08", dep: null }
+        ]
+      },
+	  {
+        number: "44170",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "21:00" },
+          { station: "Wilcza", arr: "21:05", dep: "21:06" },
+          { station: "Niżyńców", arr: "21:12", dep: "21:13" },
+		  { station: "Bercikowo Ligota", arr: "21:16", dep: "21:18" },
+		  { station: "Bercikowo", arr: "21:21", dep: "21:22" },
+		  { station: "Kozłów", arr: "21:28", dep: "21:28" },
+		  { station: "Lelis", arr: "21:32", dep: "21:32" },
+          { station: "Makieta", arr: "21:38", dep: null }
+        ]
+      },
+	  {
+        number: "44171",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "22:00" },
+          { station: "Lelis", arr: "22:06", dep: "22:06" },
+          { station: "Kozłów", arr: "22:10", dep: "22:10" },
+		  { station: "Bercikowo", arr: "22:16", dep: "22:17" },
+		  { station: "Bercikowo Ligota", arr: "22:20", dep: "22:22" },
+		  { station: "Niżyńców", arr: "22:25", dep: "22:26" },
+		  { station: "Wilcza", arr: "22:32", dep: "22:33" },
+          { station: "Piotrków", arr: "22:38", dep: null }
+        ]
+      },
+	  {
+        number: "44172",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "21:30" },
+          { station: "Wilcza", arr: "21:35", dep: "21:36" },
+          { station: "Niżyńców", arr: "21:42", dep: "21:43" },
+		  { station: "Bercikowo Ligota", arr: "21:46", dep: "21:48" },
+		  { station: "Bercikowo", arr: "21:51", dep: "21:52" },
+		  { station: "Kozłów", arr: "21:58", dep: "21:58" },
+		  { station: "Lelis", arr: "22:02", dep: "22:02" },
+          { station: "Makieta", arr: "22:08", dep: null }
+        ]
+      },
+	  {
+        number: "44173",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "22:30" },
+          { station: "Lelis", arr: "22:36", dep: "22:36" },
+          { station: "Kozłów", arr: "22:40", dep: "22:40" },
+		  { station: "Bercikowo", arr: "22:46", dep: "22:47" },
+		  { station: "Bercikowo Ligota", arr: "22:50", dep: "22:52" },
+		  { station: "Niżyńców", arr: "22:55", dep: "22:56" },
+		  { station: "Wilcza", arr: "23:02", dep: "23:03" },
+          { station: "Piotrków", arr: "23:08", dep: null }
+        ]
+      },
+	  {
+        number: "44174",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "22:00" },
+          { station: "Wilcza", arr: "22:05", dep: "22:06" },
+          { station: "Niżyńców", arr: "22:12", dep: "22:13" },
+		  { station: "Bercikowo Ligota", arr: "22:16", dep: "22:18" },
+		  { station: "Bercikowo", arr: "22:21", dep: "22:22" },
+		  { station: "Kozłów", arr: "22:28", dep: "22:28" },
+		  { station: "Lelis", arr: "22:32", dep: "22:32" },
+          { station: "Makieta", arr: "22:38", dep: null }
+        ]
+      },
+	  {
+        number: "44175",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "23:00" },
+          { station: "Lelis", arr: "23:06", dep: "23:06" },
+          { station: "Kozłów", arr: "23:10", dep: "23:10" },
+		  { station: "Bercikowo", arr: "23:16", dep: "23:17" },
+		  { station: "Bercikowo Ligota", arr: "23:20", dep: "23:22" },
+		  { station: "Niżyńców", arr: "23:25", dep: "23:26" },
+		  { station: "Wilcza", arr: "23:32", dep: "23:33" },
+          { station: "Piotrków", arr: "23:38", dep: null }
+        ]
+      },
+	  {
+        number: "44176",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "22:30" },
+          { station: "Wilcza", arr: "22:35", dep: "22:36" },
+          { station: "Niżyńców", arr: "22:42", dep: "22:43" },
+		  { station: "Bercikowo Ligota", arr: "22:46", dep: "22:48" },
+		  { station: "Bercikowo", arr: "22:51", dep: "22:52" },
+		  { station: "Kozłów", arr: "22:58", dep: "22:58" },
+		  { station: "Lelis", arr: "23:02", dep: "23:02" },
+          { station: "Makieta", arr: "23:08", dep: null }
+        ]
+      },
+	  {
+        number: "44177",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-5",
+        stops: [
+          { station: "Makieta", arr: null, dep: "23:30" },
+          { station: "Lelis", arr: "23:36", dep: "23:36" },
+          { station: "Kozłów", arr: "23:40", dep: "23:40" },
+		  { station: "Bercikowo", arr: "23:46", dep: "23:47" },
+		  { station: "Bercikowo Ligota", arr: "21:50", dep: "23:52" },
+		  { station: "Niżyńców", arr: "23:55", dep: "23:56" },
+		  { station: "Wilcza", arr: "00:02", dep: "00:03" },
+          { station: "Piotrków", arr: "00:08", dep: null }
+        ]
+      },
+	  {
+        number: "44178",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "23:00" },
+          { station: "Wilcza", arr: "23:05", dep: "23:06" },
+          { station: "Niżyńców", arr: "23:12", dep: "23:13" },
+		  { station: "Bercikowo Ligota", arr: "23:16", dep: "23:18" },
+		  { station: "Bercikowo", arr: "23:21", dep: "23:22" },
+		  { station: "Kozłów", arr: "23:28", dep: "23:28" },
+		  { station: "Lelis", arr: "23:32", dep: "23:32" },
+          { station: "Makieta", arr: "23:38", dep: null }
+        ]
+      },
+	  {
+        number: "44179",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "23:58" },
+          { station: "Lelis", arr: "00:04", dep: "00:04" },
+          { station: "Kozłów", arr: "00:08", dep: "00:08" },
+		  { station: "Bercikowo", arr: "00:14", dep: "00:15" },
+		  { station: "Bercikowo Ligota", arr: "00:18", dep: "00:20" },
+		  { station: "Niżyńców", arr: "00:25", dep: "00:24" },
+		  { station: "Wilcza", arr: "00:30", dep: "00:31" },
+          { station: "Piotrków", arr: "00:36", dep: null }
+        ]
+      },
+	  {
+        number: "44180",
+        name: "NOCNY KOCHANEK",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "00:40" },
+          { station: "Wilcza", arr: "00:45", dep: "00:46" },
+          { station: "Niżyńców", arr: "00:52", dep: "00:53" },
+		  { station: "Bercikowo Ligota", arr: "00:56", dep: "00:58" },
+		  { station: "Bercikowo", arr: "01:01", dep: "01:02" },
+		  { station: "Kozłów", arr: "01:08", dep: "01:08" },
+		  { station: "Lelis", arr: "01:12", dep: "01:12" },
+          { station: "Makieta", arr: "01:28", dep: null }
+        ]
+      },
+	  {
+        number: "44181",
+        name: "NOCNY KOCHANEK",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Makieta", arr: null, dep: "01:45" },
+          { station: "Lelis", arr: "01:51", dep: "01:51" },
+          { station: "Kozłów", arr: "01:55", dep: "01:55" },
+		  { station: "Bercikowo", arr: "02:01", dep: "02:02" },
+		  { station: "Bercikowo Ligota", arr: "02:05", dep: "02:05" },
+		  { station: "Niżyńców", arr: "02:10", dep: "02:11" },
+		  { station: "Wilcza", arr: "02:17", dep: "02:18" },
+          { station: "Piotrków", arr: "02:23", dep: null }
+        ]
+      },
+	  {
+        number: "44601",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "05:10" },
+          { station: "Piotrków Rafineria", arr: "05:13", dep: "05:13" },
+          { station: "Stachy", arr: "05:22", dep: "05:23" },
+		  { station: "Kosewo", arr: "05:30", dep: "05:32" },
+		  { station: "Międzyrzecze", arr: "05:36", dep: "05:36" },
+		  { station: "Rudyszwałd", arr: "05:41", dep: "05:41" },
+          { station: "Chałupki", arr: "05:48", dep: null }
+        ]
+      },
+	  {
+        number: "44600",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "06:10" },
+          { station: "Rudyszwałd", arr: "06:17", dep: "06:17" },
+          { station: "Międzyrzecze", arr: "06:22", dep: "06:22" },
+		  { station: "Kosewo", arr: "06:26", dep: "06:28" },
+		  { station: "Stachy", arr: "06:35", dep: "06:36" },
+		  { station: "Piotrków Rafineria", arr: "06:45", dep: "06:45" },
+          { station: "Piotrków", arr: "06:48", dep: null }
+        ]
+      },
+	  {
+        number: "44603",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "07:02" },
+          { station: "Piotrków Rafineria", arr: "07:05", dep: "07:05" },
+          { station: "Stachy", arr: "07:14", dep: "07:15" },
+		  { station: "Kosewo", arr: "07:22", dep: "07:24" },
+		  { station: "Międzyrzecze", arr: "07:28", dep: "07:28" },
+		  { station: "Rudyszwałd", arr: "07:35", dep: "07:35" },
+          { station: "Chałupki", arr: "07:40", dep: null }
+        ]
+      },
+	  {
+        number: "44602",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "07:55" },
+          { station: "Rudyszwałd", arr: "08:02", dep: "08:02" },
+          { station: "Międzyrzecze", arr: "08:07", dep: "08:07" },
+		  { station: "Kosewo", arr: "08:11", dep: "08:13" },
+		  { station: "Stachy", arr: "08:20", dep: "08:21" },
+		  { station: "Piotrków Rafineria", arr: "08:30", dep: "08:30" },
+          { station: "Piotrków", arr: "08:33", dep: null }
+        ]
+      },
+	  {
+        number: "44605",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "09:32" },
+          { station: "Piotrków Rafineria", arr: "09:35", dep: "09:35" },
+          { station: "Stachy", arr: "09:44", dep: "09:45" },
+		  { station: "Kosewo", arr: "09:52", dep: "09:54" },
+		  { station: "Międzyrzecze", arr: "09:58", dep: "09:58" },
+		  { station: "Rudyszwałd", arr: "10:05", dep: "10:05" },
+          { station: "Chałupki", arr: "10:10", dep: null }
+        ]
+      },
+	  {
+        number: "44604",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "10:25" },
+          { station: "Rudyszwałd", arr: "10:32", dep: "10:32" },
+          { station: "Międzyrzecze", arr: "10:37", dep: "10:37" },
+		  { station: "Kosewo", arr: "10:41", dep: "10:43" },
+		  { station: "Stachy", arr: "10:50", dep: "10:51" },
+		  { station: "Piotrków Rafineria", arr: "11:00", dep: "11:00" },
+          { station: "Piotrków", arr: "11:03", dep: null }
+        ]
+      },
+	  {
+        number: "44607",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "13:12" },
+          { station: "Piotrków Rafineria", arr: "13:15", dep: "13:15" },
+          { station: "Stachy", arr: "13:24", dep: "13:25" },
+		  { station: "Kosewo", arr: "13:32", dep: "13:34" },
+		  { station: "Międzyrzecze", arr: "13:38", dep: "13:38" },
+		  { station: "Rudyszwałd", arr: "13:45", dep: "13:45" },
+          { station: "Chałupki", arr: "13:50", dep: null }
+        ]
+      },
+	  {
+        number: "44606",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "14:15" },
+          { station: "Rudyszwałd", arr: "14:22", dep: "14:22" },
+          { station: "Międzyrzecze", arr: "14:27", dep: "14:27" },
+		  { station: "Kosewo", arr: "14:31", dep: "14:33" },
+		  { station: "Stachy", arr: "14:40", dep: "14:41" },
+		  { station: "Piotrków Rafineria", arr: "14:50", dep: "14:50" },
+          { station: "Piotrków", arr: "14:53", dep: null }
+        ]
+      },
+	  {
+        number: "44609",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "15:10" },
+          { station: "Piotrków Rafineria", arr: "15:13", dep: "15:13" },
+          { station: "Stachy", arr: "15:22", dep: "15:23" },
+		  { station: "Kosewo", arr: "15:30", dep: "15:32" },
+		  { station: "Międzyrzecze", arr: "15:36", dep: "15:36" },
+		  { station: "Rudyszwałd", arr: "15:43", dep: "15:43" },
+          { station: "Chałupki", arr: "15:48", dep: null }
+        ]
+      },
+	  {
+        number: "44608",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "16:05" },
+          { station: "Rudyszwałd", arr: "16:12", dep: "16:12" },
+          { station: "Międzyrzecze", arr: "16:17", dep: "16:17" },
+		  { station: "Kosewo", arr: "16:21", dep: "16:23" },
+		  { station: "Stachy", arr: "16:30", dep: "16:31" },
+		  { station: "Piotrków Rafineria", arr: "16:40", dep: "16:40" },
+          { station: "Piotrków", arr: "16:43", dep: null }
+        ]
+      },
+	  {
+        number: "44611",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "17:07" },
+          { station: "Piotrków Rafineria", arr: "17:10", dep: "17:10" },
+          { station: "Stachy", arr: "17:19", dep: "17:20" },
+		  { station: "Kosewo", arr: "17:27", dep: "17:29" },
+		  { station: "Międzyrzecze", arr: "17:33", dep: "17:33" },
+		  { station: "Rudyszwałd", arr: "17:38", dep: "17:38" },
+          { station: "Chałupki", arr: "17:45", dep: null }
+        ]
+      },
+	  {
+        number: "44610",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "18:10" },
+          { station: "Rudyszwałd", arr: "18:17", dep: "18:17" },
+          { station: "Międzyrzecze", arr: "18:22", dep: "18:22" },
+		  { station: "Kosewo", arr: "18:26", dep: "18:28" },
+		  { station: "Stachy", arr: "18:35", dep: "18:36" },
+		  { station: "Piotrków Rafineria", arr: "18:45", dep: "18:45" },
+          { station: "Piotrków", arr: "18:48", dep: null }
+        ]
+      },
+	  {
+        number: "44613",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "19:22" },
+          { station: "Piotrków Rafineria", arr: "19:25", dep: "19:25" },
+          { station: "Stachy", arr: "19:34", dep: "19:35" },
+		  { station: "Kosewo", arr: "19:42", dep: "19:44" },
+		  { station: "Międzyrzecze", arr: "19:48", dep: "19:48" },
+		  { station: "Rudyszwałd", arr: "19:55", dep: "19:55" },
+          { station: "Chałupki", arr: "20:00", dep: null }
+        ]
+      },
+	  {
+        number: "44612",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "20:15" },
+          { station: "Rudyszwałd", arr: "20:22", dep: "20:22" },
+          { station: "Międzyrzecze", arr: "20:27", dep: "20:27" },
+		  { station: "Kosewo", arr: "20:31", dep: "20:33" },
+		  { station: "Stachy", arr: "20:40", dep: "20:41" },
+		  { station: "Piotrków Rafineria", arr: "20:50", dep: "20:50" },
+          { station: "Piotrków", arr: "20:53", dep: null }
+        ]
+      },
+	  {
+        number: "44615",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Piotrków", arr: null, dep: "21:12" },
+          { station: "Piotrków Rafineria", arr: "21:15", dep: "21:15" },
+          { station: "Stachy", arr: "21:24", dep: "21:25" },
+		  { station: "Kosewo", arr: "21:32", dep: "21:34" },
+		  { station: "Międzyrzecze", arr: "21:38", dep: "21:38" },
+		  { station: "Rudyszwałd", arr: "21:45", dep: "21:45" },
+          { station: "Chałupki", arr: "21:50", dep: null }
+        ]
+      },
+	  {
+        number: "44614",
+        name: "",
+        carrier: "PR - ",
+        category: "R",
+        days: "1-7",
+        stops: [
+          { station: "Chałupki", arr: null, dep: "22:15" },
+          { station: "Rudyszwałd", arr: "22:22", dep: "22:22" },
+          { station: "Międzyrzecze", arr: "22:27", dep: "22:27" },
+		  { station: "Kosewo", arr: "22:31", dep: "22:33" },
+		  { station: "Stachy", arr: "22:40", dep: "22:41" },
+		  { station: "Piotrków Rafineria", arr: "22:50", dep: "22:50" },
+          { station: "Piotrków", arr: "22:53", dep: null }
+        ]
+      },
+	  {
+        number: "44400",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "04:22" },
+          { station: "Wilcza XYZ", arr: "04:25", dep: "04:25" },
+          { station: "Morawiany Zarzecze", arr: "04:42", dep: "04:42" },
+		  { station: "Morawiany", arr: "04:44", dep: "04:45" },
+		  { station: "Pniów", arr: "04:59", dep: "05:00" },
+		  { station: "Oksice", arr: "05:17", dep: "05:18" },
+		  { station: "Oksice Tartak", arr: "05:20", dep: "05:20" },
+		  { station: "Grzęzno", arr: "05:35", dep: "05:36" },
+		  { station: "Wielecin Miasto", arr: "05:48", dep: "05:50" },
+          { station: "Wielecin", arr: "05:53", dep: null }
+        ]
+      },
+	  {
+        number: "44401",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "06:10" },
+          { station: "Wielecin Miasto", arr: "06:13", dep: "06:15" },
+          { station: "Grzęzno", arr: "06:27", dep: "06:28" },
+		  { station: "Oksice Tartak", arr: "06:43", dep: "06:43" },
+		  { station: "Oksice", arr: "06:45", dep: "06:46" },
+		  { station: "Pniów", arr: "07:03", dep: "07:04" },
+		  { station: "Morawiany", arr: "07:18", dep: "07:19" },
+		  { station: "Morawiany Zarzecze", arr: "07:21", dep: "07:21" },
+		  { station: "Wilcza XYZ", arr: "07:38", dep: "07:38" },
+          { station: "Wilcza", arr: "07:41", dep: null }
+        ]
+      },
+	  {
+        number: "44402",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "06:22" },
+          { station: "Wilcza XYZ", arr: "06:25", dep: "06:25" },
+          { station: "Morawiany Zarzecze", arr: "06:42", dep: "06:42" },
+		  { station: "Morawiany", arr: "06:44", dep: "06:45" },
+		  { station: "Pniów", arr: "06:59", dep: "07:04" },
+		  { station: "Oksice", arr: "07:21", dep: "07:22" },
+		  { station: "Oksice Tartak", arr: "07:24", dep: "07:24" },
+		  { station: "Grzęzno", arr: "07:39", dep: "07:40" },
+		  { station: "Wielecin Miasto", arr: "07:52", dep: "07:54" },
+          { station: "Wielecin", arr: "07:57", dep: null }
+        ]
+      },
+	  {
+        number: "44403",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "07:21" },
+          { station: "Wielecin Miasto", arr: "07:24", dep: "07:26" },
+          { station: "Grzęzno", arr: "07:38", dep: "07:40" },
+		  { station: "Oksice Tartak", arr: "07:55", dep: "07:55" },
+		  { station: "Oksice", arr: "07:57", dep: "07:59" },
+		  { station: "Pniów", arr: "08:16", dep: "08:17" },
+		  { station: "Morawiany", arr: "08:31", dep: "08:33" },
+		  { station: "Morawiany Zarzecze", arr: "08:35", dep: "08:35" },
+		  { station: "Wilcza XYZ", arr: "09:00", dep: "09:00" },
+          { station: "Wilcza", arr: "09:03", dep: null }
+        ]
+      },
+	  {
+        number: "44404",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "08:09" },
+          { station: "Wilcza XYZ", arr: "08:12", dep: "08:12" },
+          { station: "Morawiany Zarzecze", arr: "08:29", dep: "08:29" },
+		  { station: "Morawiany", arr: "08:32", dep: "08:33" },
+		  { station: "Pniów", arr: "08:47", dep: "08:48" },
+		  { station: "Oksice", arr: "09:05", dep: "09:06" },
+		  { station: "Oksice Tartak", arr: "09:08", dep: "09:08" },
+		  { station: "Grzęzno", arr: "09:23", dep: "09:24" },
+		  { station: "Wielecin Miasto", arr: "09:36", dep: "09:38" },
+          { station: "Wielecin", arr: "09:41", dep: null }
+        ]
+      },
+	  {
+        number: "44406",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "10:15" },
+          { station: "Wilcza XYZ", arr: "10:18", dep: "10:18" },
+          { station: "Morawiany Zarzecze", arr: "10:35", dep: "10:35" },
+		  { station: "Morawiany", arr: "10:37", dep: "10:38" },
+		  { station: "Pniów", arr: "10:52", dep: "10:53" },
+		  { station: "Oksice", arr: "11:10", dep: "11:11" },
+		  { station: "Oksice Tartak", arr: "11:13", dep: "11:13" },
+		  { station: "Grzęzno", arr: "11:28", dep: "11:29" },
+		  { station: "Wielecin Miasto", arr: "11:41", dep: "11:43" },
+          { station: "Wielecin", arr: "11:46", dep: null }
+        ]
+      },
+	  {
+        number: "44408",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "12:20" },
+          { station: "Wilcza XYZ", arr: "12:23", dep: "12:23" },
+          { station: "Morawiany Zarzecze", arr: "12:40", dep: "12:40" },
+		  { station: "Morawiany", arr: "12:42", dep: "12:43" },
+		  { station: "Pniów", arr: "12:57", dep: "12:58" },
+		  { station: "Oksice", arr: "13:15", dep: "13:16" },
+		  { station: "Oksice Tartak", arr: "13:18", dep: "13:18" },
+		  { station: "Grzęzno", arr: "13:33", dep: "13:34" },
+		  { station: "Wielecin Miasto", arr: "13:46", dep: "13:48" },
+          { station: "Wielecin", arr: "13:51", dep: null }
+        ]
+      },
+	  {
+        number: "44410",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "14:00" },
+          { station: "Wilcza XYZ", arr: "14:03", dep: "14:03" },
+          { station: "Morawiany Zarzecze", arr: "14:20", dep: "14:20" },
+		  { station: "Morawiany", arr: "14:22", dep: "14:23" },
+		  { station: "Pniów", arr: "14:37", dep: "14:38" },
+		  { station: "Oksice", arr: "14:55", dep: "14:56" },
+		  { station: "Oksice Tartak", arr: "14:58", dep: "14:58" },
+		  { station: "Grzęzno", arr: "15:13", dep: "15:14" },
+		  { station: "Wielecin Miasto", arr: "15:26", dep: "15:28" },
+          { station: "Wielecin", arr: "15:31", dep: null }
+        ]
+      },
+	  {
+        number: "44412",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "16:10" },
+          { station: "Wilcza XYZ", arr: "16:13", dep: "16:13" },
+          { station: "Morawiany Zarzecze", arr: "16:30", dep: "16:30" },
+		  { station: "Morawiany", arr: "16:32", dep: "16:33" },
+		  { station: "Pniów", arr: "16:47", dep: "16:48" },
+		  { station: "Oksice", arr: "17:05", dep: "17:06" },
+		  { station: "Oksice Tartak", arr: "17:08", dep: "17:08" },
+		  { station: "Grzęzno", arr: "17:23", dep: "17:24" },
+		  { station: "Wielecin Miasto", arr: "17:36", dep: "17:38" },
+          { station: "Wielecin", arr: "17:41", dep: null }
+        ]
+      },
+	  {
+        number: "44414",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "18:15" },
+          { station: "Wilcza XYZ", arr: "18:18", dep: "18:18" },
+          { station: "Morawiany Zarzecze", arr: "18:35", dep: "18:35" },
+		  { station: "Morawiany", arr: "18:37", dep: "18:38" },
+		  { station: "Pniów", arr: "18:52", dep: "18:53" },
+		  { station: "Oksice", arr: "19:10", dep: "19:11" },
+		  { station: "Oksice Tartak", arr: "19:13", dep: "19:13" },
+		  { station: "Grzęzno", arr: "19:28", dep: "19:29" },
+		  { station: "Wielecin Miasto", arr: "19:41", dep: "19:43" },
+          { station: "Wielecin", arr: "19:46", dep: null }
+        ]
+      },
+	  {
+        number: "44416",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wilcza", arr: null, dep: "20:10" },
+          { station: "Wilcza XYZ", arr: "20:13", dep: "20:13" },
+          { station: "Morawiany Zarzecze", arr: "20:30", dep: "20:30" },
+		  { station: "Morawiany", arr: "20:32", dep: "20:33" },
+		  { station: "Pniów", arr: "20:47", dep: "20:48" },
+		  { station: "Oksice", arr: "21:05", dep: "21:06" },
+		  { station: "Oksice Tartak", arr: "21:08", dep: "21:08" },
+		  { station: "Grzęzno", arr: "21:23", dep: "21:24" },
+		  { station: "Wielecin Miasto", arr: "21:36", dep: "21:38" },
+          { station: "Wielecin", arr: "21:41", dep: null }
+        ]
+      },
+	  {
+        number: "44405",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "08:30" },
+          { station: "Wielecin Miasto", arr: "08:33", dep: "08:35" },
+          { station: "Grzęzno", arr: "08:47", dep: "08:48" },
+		  { station: "Oksice Tartak", arr: "09:03", dep: "09:03" },
+		  { station: "Oksice", arr: "09:05", dep: "09:06" },
+		  { station: "Pniów", arr: "09:23", dep: "09:24" },
+		  { station: "Morawiany", arr: "09:38", dep: "09:39" },
+		  { station: "Morawiany Zarzecze", arr: "09:41", dep: "09:41" },
+		  { station: "Wilcza XYZ", arr: "09:58", dep: "09:58" },
+          { station: "Wilcza", arr: "10:01", dep: null }
+        ]
+      },
+	  {
+        number: "44407",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "09:59" },
+          { station: "Wielecin Miasto", arr: "10:02", dep: "10:04" },
+          { station: "Grzęzno", arr: "10:16", dep: "10:17" },
+		  { station: "Oksice Tartak", arr: "10:32", dep: "10:32" },
+		  { station: "Oksice", arr: "10:34", dep: "10:35" },
+		  { station: "Pniów", arr: "10:52", dep: "10:53" },
+		  { station: "Morawiany", arr: "11:07", dep: "11:08" },
+		  { station: "Morawiany Zarzecze", arr: "11:10", dep: "11:10" },
+		  { station: "Wilcza XYZ", arr: "11:27", dep: "11:27" },
+          { station: "Wilcza", arr: "11:30", dep: null }
+        ]
+      },
+	  {
+        number: "44409",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "12:05" },
+          { station: "Wielecin Miasto", arr: "12:08", dep: "12:08" },
+          { station: "Grzęzno", arr: "12:20", dep: "12:21" },
+		  { station: "Oksice Tartak", arr: "12:36", dep: "12:36" },
+		  { station: "Oksice", arr: "12:38", dep: "12:40" },
+		  { station: "Pniów", arr: "12:57", dep: "12:58" },
+		  { station: "Morawiany", arr: "13:12", dep: "13:13" },
+		  { station: "Morawiany Zarzecze", arr: "13:15", dep: "13:15" },
+		  { station: "Wilcza XYZ", arr: "13:32", dep: "13:32" },
+          { station: "Wilcza", arr: "13:35", dep: null }
+        ]
+      },
+	  {
+        number: "44411",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "14:20" },
+          { station: "Wielecin Miasto", arr: "14:23", dep: "14:25" },
+          { station: "Grzęzno", arr: "14:37", dep: "014:38" },
+		  { station: "Oksice Tartak", arr: "14:53", dep: "14:53" },
+		  { station: "Oksice", arr: "14:55", dep: "14:56" },
+		  { station: "Pniów", arr: "15:13", dep: "15:14" },
+		  { station: "Morawiany", arr: "15:28", dep: "15:29" },
+		  { station: "Morawiany Zarzecze", arr: "15:31", dep: "15:31" },
+		  { station: "Wilcza XYZ", arr: "15:48", dep: "15:48" },
+          { station: "Wilcza", arr: "15:51", dep: null }
+        ]
+      },
+	  {
+        number: "44413",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-5",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "16:30" },
+          { station: "Wielecin Miasto", arr: "16:33", dep: "16:35" },
+          { station: "Grzęzno", arr: "16:47", dep: "16:48" },
+		  { station: "Oksice Tartak", arr: "17:03", dep: "17:03" },
+		  { station: "Oksice", arr: "17:05", dep: "17:06" },
+		  { station: "Pniów", arr: "17:23", dep: "17:24" },
+		  { station: "Morawiany", arr: "17:38", dep: "17:39" },
+		  { station: "Morawiany Zarzecze", arr: "17:41", dep: "17:41" },
+		  { station: "Wilcza XYZ", arr: "17:58", dep: "17:58" },
+          { station: "Wilcza", arr: "18:01", dep: null }
+        ]
+      },
+	  {
+        number: "44415",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "18:00" },
+          { station: "Wielecin Miasto", arr: "18:03", dep: "18:05" },
+          { station: "Grzęzno", arr: "18:17", dep: "18:18" },
+		  { station: "Oksice Tartak", arr: "18:33", dep: "18:33" },
+		  { station: "Oksice", arr: "18:35", dep: "18:36" },
+		  { station: "Pniów", arr: "18:53", dep: "18:54" },
+		  { station: "Morawiany", arr: "19:08", dep: "19:09" },
+		  { station: "Morawiany Zarzecze", arr: "19:11", dep: "19:11" },
+		  { station: "Wilcza XYZ", arr: "19:28", dep: "19:28" },
+          { station: "Wilcza", arr: "19:31", dep: null }
+        ]
+      },
+	  {
+        number: "44417",
+        name: "",
+        carrier: "BKP - ",
+        category: "Os",
+        days: "1-7",
+        stops: [
+          { station: "Wielecin", arr: null, dep: "22:00" },
+          { station: "Wielecin Miasto", arr: "22:03", dep: "22:05" },
+          { station: "Grzęzno", arr: "22:17", dep: "22:18" },
+		  { station: "Oksice Tartak", arr: "22:33", dep: "22:33" },
+		  { station: "Oksice", arr: "22:35", dep: "22:36" },
+		  { station: "Pniów", arr: "22:53", dep: "22:54" },
+		  { station: "Morawiany", arr: "23:08", dep: "23:09" },
+		  { station: "Morawiany Zarzecze", arr: "23:11", dep: "23:11" },
+		  { station: "Wilcza XYZ", arr: "23:28", dep: "23:28" },
+          { station: "Wilcza", arr: "23:31", dep: null }
+        ]
+      },
+	  {
         number: "44300",
         name: "",
         carrier: "PR - ",
@@ -359,7 +2351,7 @@
           { station: "Bercikowo Ligota", arr: "14:58", dep: null }
         ]
       },
-	  {
+	   {
         number: "44323",
         name: "",
         carrier: "PR - ",
@@ -424,139 +2416,131 @@
           { station: "Piotrków", arr: "19:33", dep: null }
         ]
       }
-    ];
+];
 
-    // Wypełnij datalistę unikalnymi stacjami
-    const allStations = Array.from(new Set(trains.flatMap(t => t.stops.map(s => s.station)))).sort();
-    const stationList = document.getElementById("stations");
-    allStations.forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = s;
-      stationList.appendChild(opt);
-    });
+// stacje
+const allStations = [...new Set(trains.flatMap(t => t.stops.map(s => s.station)))].sort();
+const stationList = document.getElementById("stations");
+allStations.forEach(s => {
+  const o = document.createElement("option");
+  o.value = s;
+  stationList.appendChild(o);
+});
 
-    // Domyślna data i godzina
-    const today = new Date();
-    document.getElementById("travelDate").value = today.toISOString().split("T")[0];
-    document.getElementById("travelTime").value = today.toTimeString().substring(0, 5);
+// domyślna data i godzina
+const now = new Date();
+travelDate.value = now.toISOString().split("T")[0];
+travelTime.value = now.toTimeString().slice(0,5);
 
-    function dayMatches(trainDays, travelDate) {
-      const dayOfWeek = travelDate.getDay(); // 0 - niedziela
-      const dayMap = { 0: 7, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
-      const day = dayMap[dayOfWeek];
-      if (trainDays.includes(",")) {
-        return trainDays.split(",").includes(day.toString());
-      }
-      const [from, to] = trainDays.split("-").map(Number);
-      return day >= from && day <= to;
-    }
+function dayMatches(trainDays, travelDate) {
+  const dayMap = {0:7,1:1,2:2,3:3,4:4,5:5,6:6};
+  const day = dayMap[travelDate.getDay()];
+  const [from, to] = trainDays.split("-").map(Number);
+  return day >= from && day <= to;
+}
 
-    function parseTime(t) {
-      const [h, m] = t.split(":").map(Number);
-      return h * 60 + m;
-    }
+function parseTime(t) {
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+}
 
-    function formatTimetable(stops) {
-      return stops.map(s => {
-        const arr = s.arr ?? "--:--";
-        const dep = s.dep ?? "--:--";
-        return `<div class="timetable-line">${s.station.padEnd(15)} ${arr}/${dep}</div>`;
-      }).join("");
-    }
+function formatTimetable(stops) {
+  return stops.map(s => {
+    const arr = s.arr ?? "--:--";
+    const dep = s.dep ?? "--:--";
+    return `<div class="timetable-line">${s.station.padEnd(20)} ${arr}/${dep}</div>`;
+  }).join("");
+}
 
-    function searchConnections() {
-    const from = document.getElementById("startStation").value.trim();
-    const to = document.getElementById("endStation").value.trim();
-    const dateInput = document.getElementById("travelDate").value;
-    const timeInput = document.getElementById("travelTime").value;
-    const results = document.getElementById("results");
-    results.innerHTML = "";
+function searchConnections() {
+  const from = startStation.value.trim();
+  const to = endStation.value.trim();
+  const date = new Date(travelDate.value);
+  const minTime = parseTime(travelTime.value);
+  const results = document.getElementById("results");
+  results.innerHTML = "";
 
-    if (!from || !to || !dateInput || !timeInput) {
-      results.innerHTML = "<p>Uzupełnij wszystkie pola.</p>";
-      return;
-    }
+  function findPaths(currentStation, visitedStations, visitedTrains, path, arrivalTime, maxTransfers) {
+    if (path.length > maxTransfers + 1) return [];
+    let found = [];
 
-    const date = new Date(dateInput);
-    const minTime = parseTime(timeInput);
+    for (const train of trains) {
+      if (visitedTrains.includes(train)) continue;
+      if (!dayMatches(train.days, date)) continue;
 
-    function findPaths(currentStation, visitedTrains, path, arrivalTime, maxTransfers) {
-      if (path.length > maxTransfers + 1) return [];
+      const stops = train.stops;
+      const idx = stops.findIndex(s => s.station === currentStation);
+      if (idx === -1 || idx === stops.length - 1) continue;
 
-      const results = [];
+      const depStop = stops[idx];
+      if (!depStop.dep) continue;
 
-      for (const train of trains) {
-        if (visitedTrains.includes(train)) continue;
-        if (!dayMatches(train.days, date)) continue;
+      const depTime = parseTime(depStop.dep);
+      if (path.length === 0 && depTime < minTime) continue;
+      if (path.length > 0 && depTime - arrivalTime < 5) continue;
 
-        const stops = train.stops;
-        const index = stops.findIndex(s => s.station === currentStation);
-        if (index === -1 || index === stops.length - 1) continue;
+      for (let i = idx + 1; i < stops.length; i++) {
+        const arrStop = stops[i];
+        if (!arrStop.arr) continue;
+        if (visitedStations.includes(arrStop.station)) continue;
 
-        for (let i = index + 1; i < stops.length; i++) {
-          const depStop = stops[index];
-          const arrStop = stops[i];
+        const leg = { train, from: depStop, to: arrStop };
+        const arrTime = parseTime(arrStop.arr);
 
-          const depTime = parseTime(depStop.dep);
-          const arrTime = parseTime(arrStop.arr);
-
-          if (path.length === 0 && depTime < minTime) continue;
-          if (path.length > 0 && depTime - arrivalTime < 5) continue;
-
-          const newLeg = { train, from: depStop, to: arrStop };
-
-          if (arrStop.station === to) {
-            results.push([...path, newLeg]);
-          } else {
-            const nextPaths = findPaths(arrStop.station, [...visitedTrains, train], [...path, newLeg], arrTime, maxTransfers);
-            results.push(...nextPaths);
-          }
+        if (arrStop.station === to) {
+          found.push([...path, leg]);
+        } else {
+          found.push(...findPaths(
+            arrStop.station,
+            [...visitedStations, arrStop.station],
+            [...visitedTrains, train],
+            [...path, leg],
+            arrTime,
+            maxTransfers
+          ));
         }
       }
-
-      return results;
     }
-
-    const allPaths = findPaths(from, [], [], minTime, 6);
-
-    if (allPaths.length === 0) {
-      results.innerHTML = "<p>Brak połączeń.</p>";
-      return;
-    }
-
-    for (const path of allPaths) {
-      const firstLeg = path[0];
-      const lastLeg = path[path.length - 1];
-
-      let output = `<div class="result">`;
-      for (const leg of path) {
-        const t = leg.train;
-        const trainName = t.name ? ` – ${t.name.toUpperCase()}` : "";
-        output += `<strong>${t.carrier} ${t.category} ${t.number}</strong>${trainName}<br>`;
-      }
-
-      output += `<strong>${from}</strong>: ${firstLeg.from.dep}<br>`;
-      if (path.length > 1) {
-        for (let i = 0; i < path.length - 1; i++) {
-          const station = path[i].to.station;
-          const arr = path[i].to.arr;
-          const dep = path[i + 1].from.dep;
-          output += `<strong>${station}</strong>: ${arr} / ${dep}<br>`;
-        }
-      }
-      output += `<strong>${to}</strong>: ${lastLeg.to.arr}<br>`;
-
-      output += `<details><summary>Pokaż szczegóły wszystkich kursów</summary>`;
-      for (const leg of path) {
-        const t = leg.train;
-        output += `<em>${t.carrier} ${t.category} ${t.number}</em><br>`;
-        output += formatTimetable(t.stops) + "<hr>";
-      }
-      output += `</details></div>`;
-
-      results.innerHTML += output;
-    }
+    return found;
   }
+
+  let paths = [];
+
+  // 🔑 WARSTWOWE SZUKANIE: 0 przesiadek → 1 → 2 → ...
+  for (let transfers = 0; transfers <= 6 && paths.length === 0; transfers++) {
+    paths = findPaths(from, [from], [], [], minTime, transfers);
+  }
+
+  // 🔑 SORT: najkrótszy czas przejazdu
+  paths.sort((a, b) => {
+    const ta = parseTime(a[a.length-1].to.arr) - parseTime(a[0].from.dep);
+    const tb = parseTime(b[b.length-1].to.arr) - parseTime(b[0].from.dep);
+    return ta - tb;
+  });
+
+  paths.slice(0, 10).forEach(path => {
+    let html = `<div class="result">`;
+    path.forEach(l => {
+      html += `<strong>${l.train.carrier}${l.train.category} ${l.train.number}</strong><br>`;
+    });
+    html += `<strong>${from}</strong>: ${path[0].from.dep}<br>`;
+    for (let i = 0; i < path.length - 1; i++) {
+      html += `<strong>${path[i].to.station}</strong>: ${path[i].to.arr} / ${path[i+1].from.dep}<br>`;
+    }
+    html += `<strong>${to}</strong>: ${path[path.length-1].to.arr}<br>`;
+
+    html += `<details><summary>Pokaż szczegóły wszystkich kursów</summary>`;
+    path.forEach(l => {
+      html += `<em>${l.train.carrier}${l.train.category} ${l.train.number}</em>`;
+      html += formatTimetable(l.train.stops) + "<hr>";
+    });
+    html += `</details></div>`;
+
+    results.innerHTML += html;
+  });
+
+  if (paths.length === 0) results.innerHTML = "<p>Brak połączeń.</p>";
+}
 </script>
 
 </body>
